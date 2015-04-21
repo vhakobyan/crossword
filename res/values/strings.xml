@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">myapp</string>
+    <string name="button_last">Last</string>
+    <string name="button_list">List</string>
+    <string name="button_category">Category</string>
+    <string name="button_search">Search</string>
+</resources>

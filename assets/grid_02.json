@@ -1,0 +1,186 @@
+{
+  "grid": {
+    "name": "Grille 2",
+    "date": "03/01/2012",
+    "author": "Isshun",
+    "level": "1",
+    "width": "9",
+    "height": "9",
+    "horizontal": {
+      "word": [
+        {
+          "-x": "0",
+          "-y": "0",
+          "-description": "Garnir de diamants",
+          "#text": "diamanter"
+        },
+        {
+          "-x": "2",
+          "-y": "1",
+          "-description": "Articulation",
+          "#text": "genou"
+        },
+        {
+          "-x": "0",
+          "-y": "2",
+          "-description": "Naitre au present",
+          "#text": "nais"
+        },
+        {
+          "-x": "5",
+          "-y": "2",
+          "-description": "Père de Bambi",
+          "#text": "cerf"
+        },
+        {
+          "-x": "0",
+          "-y": "3",
+          "-description": "Que l'on doit",
+          "#text": "du"
+        },
+        {
+          "-x": "3",
+          "-y": "3",
+          "-description": "Policier américain",
+          "#text": "sherif"
+        },
+        {
+          "-x": "0",
+          "-y": "4",
+          "-description": "Couleur or",
+          "#text": "ors"
+        },
+        {
+          "-x": "6",
+          "-y": "4",
+          "-description": "Équidé à longues oreilles",
+          "#text": "ane"
+        },
+        {
+          "-x": "0",
+          "-y": "5",
+          "-description": "Sentiment de dégoût",
+          "#text": "nausee"
+        },
+        {
+          "-x": "7",
+          "-y": "5",
+          "-description": "Symbole chimique chrome",
+          "#text": "cr"
+        },
+        {
+          "-x": "0",
+          "-y": "6",
+          "-description": "Noyaux de la terre",
+          "#text": "nife"
+        },
+        {
+          "-x": "5",
+          "-y": "6",
+          "-description": "Transport publique de surface",
+          "#text": "tram"
+        },
+        {
+          "-x": "2",
+          "-y": "7",
+          "-description": "Compagnon d'armes",
+          "#text": "frere"
+        },
+        {
+          "-x": "0",
+          "-y": "8",
+          "-description": "Dégouliner",
+          "#text": "ruisseler"
+        }
+      ]
+    },
+    "vertical": {
+      "word": [
+        {
+          "-x": "0",
+          "-y": "0",
+          "-description": "Prendre pour un pigeon",
+          "#text": "dindonner"
+        },
+        {
+          "-x": "1",
+          "-y": "2",
+          "-description": "Posséderai",
+          "#text": "aurai"
+        },
+        {
+          "-x": "2",
+          "-y": "0",
+          "-description": "Fait",
+          "#text": "agi"
+        },
+        {
+          "-x": "2",
+          "-y": "4",
+          "-description": "Satisfait",
+          "#text": "suffi"
+        },
+        {
+          "-x": "3",
+          "-y": "0",
+          "-description": "Restaurant d'officier",
+          "#text": "mess"
+        },
+        {
+          "-x": "3",
+          "-y": "5",
+          "-description": "Amène",
+          "#text": "sers"
+        },
+        {
+          "-x": "4",
+          "-y": "0",
+          "-description": "Période d'environ 365 jours",
+          "#text": "AN"
+        },
+        {
+          "-x": "4",
+          "-y": "7",
+          "-description": "Suffixe internet de l'espagne",
+          "#text": "es"
+        },
+        {
+          "-x": "5",
+          "-y": "0",
+          "-description": "D'argent ou de coutant",
+          "#text": "noce"
+        },
+        {
+          "-x": "5",
+          "-y": "5",
+          "-description": "Entité",
+          "#text": "etre"
+        },
+        {
+          "-x": "6",
+          "-y": "0",
+          "-description": "Ôtera la vie",
+          "#text": "tuera"
+        },
+        {
+          "-x": "6",
+          "-y": "6",
+          "-description": "Réacteur à eau légère",
+          "#text": "rel"
+        },
+        {
+          "-x": "7",
+          "-y": "2",
+          "-description": "Passa à l'eau",
+          "#text": "rinca"
+        },
+        {
+          "-x": "8",
+          "-y": "0",
+          "-description": "Consolider",
+          "#text": "raffermir"
+        }
+      ]
+    }
+  }
+}

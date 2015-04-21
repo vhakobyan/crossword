@@ -1,0 +1,186 @@
+{
+  "grid": {
+    "name": "Grille 1",
+    "date": "03/01/2012",
+    "author": "Isshun",
+    "level": "1",
+    "width": "9",
+    "height": "9",
+    "horizontal": {
+      "word": [
+        {
+          "x": "0",
+          "y": "0",
+          "description": "Terminer triomphalement",
+          "text": "նապաստակ"
+        },
+        {
+          "x": "2",
+          "y": "1",
+          "description": "նապաստակ նապաստակ",
+          "text": "ceans"
+        },
+        {
+          "x": "0",
+          "y": "2",
+          "description": "Enferma",
+          "text": "barricada"
+        },
+        {
+          "x": "0",
+          "y": "3",
+          "description": "Colère",
+          "text": "ire"
+        },
+        {
+          "x": "4",
+          "y": "3",
+          "description": "Le tien",
+          "text": "ta"
+        },
+        {
+          "x": "7",
+          "y": "3",
+          "description": "Badine",
+          "text": "ri"
+        },
+        {
+          "x": "0",
+          "y": "4",
+          "description": "Aigre",
+          "text": "amer"
+        },
+        {
+          "x": "5",
+          "y": "4",
+          "description": "Découpe",
+          "text": "scie"
+        },
+        {
+          "x": "0",
+          "y": "5",
+          "description": "Non",
+          "text": "ne"
+        },
+        {
+          "x": "3",
+          "y": "5",
+          "description": "Matière précieuse",
+          "text": "or"
+        },
+        {
+          "x": "6",
+          "y": "5",
+          "description": "Avion sans moteur",
+          "text": "ulm"
+        },
+        {
+          "x": "0",
+          "y": "6",
+          "description": "Alligator",
+          "text": "crocodile"
+        },
+        {
+          "x": "2",
+          "y": "7",
+          "description": "Faire des nœuds",
+          "text": "nouer"
+        },
+        {
+          "x": "0",
+          "y": "8",
+          "description": "Repérait",
+          "text": "situerait"
+        }
+      ]
+    },
+    "vertical": {
+      "word": [
+        {
+          "x": "0",
+          "y": "0",
+          "description": "Atmosphères d'un lieu",
+          "text": "ambiances"
+        },
+        {
+          "x": "1",
+          "y": "2",
+          "description": "Équiper",
+          "text": "armer"
+        },
+        {
+          "x": "2",
+          "y": "0",
+          "description": "Qui est coloré de jaune",
+          "text": "ocree"
+        },
+        {
+          "x": "2",
+          "y": "6",
+          "description": "Être en possession",
+          "text": "ont"
+        },
+        {
+          "x": "3",
+          "y": "0",
+          "description": "Transport régional",
+          "text": "ter"
+        },
+        {
+          "x": "3",
+          "y": "4",
+          "description": "Colorant rouge orangé",
+          "text": "rocou"
+        },
+        {
+          "x": "4",
+          "y": "0",
+          "description": "Déteste",
+          "text": "hait"
+        },
+        {
+          "x": "4",
+          "y": "5",
+          "description": "Disque tournant",
+          "text": "roue"
+        },
+        {
+          "x": "5",
+          "y": "0",
+          "description": "Repas léger",
+          "text": "encas"
+        },
+        {
+          "x": "5",
+          "y": "6",
+          "description": "Région de Champagne",
+          "text": "der"
+        },
+        {
+          "x": "6",
+          "y": "0",
+          "description": "Tenta",
+          "text": "osa"
+        },
+        {
+          "x": "6",
+          "y": "4",
+          "description": "Chauffera",
+          "text": "cuira"
+        },
+        {
+          "x": "7",
+          "y": "2",
+          "description": "Cousin mandrill",
+          "text": "drill"
+        },
+        {
+          "x": "8",
+          "y": "0",
+          "description": "Fait d'étayer",
+          "text": "etaiement"
+        }
+      ]
+    }
+  }
+}
