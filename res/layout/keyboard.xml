@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+            android:id="@+id/linearLayout0"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+        <Button
+                android:id="@+id/button01"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="է" />
+        <Button
+                android:id="@+id/button02"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="թ" />
+        <Button
+                android:id="@+id/button03"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="փ" />
+        <Button
+                android:id="@+id/button04"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ձ" />
+        <Button
+                android:id="@+id/button05"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ջ" />
+        <Button
+                android:id="@+id/button06"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="և" />
+        <Button
+                android:id="@+id/button07"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ռ" />
+        <Button
+                android:id="@+id/button08"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="չ" />
+        <Button
+                android:id="@+id/button09"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ճ" />
+        <Button
+                android:id="@+id/button10"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ժ" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+        <Button
+                android:id="@+id/buttonA"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ք" />
+
+        <Button
+                android:id="@+id/buttonZ"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ո" />
+
+        <Button
+                android:id="@+id/buttonE"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ե" />
+
+        <Button
+                android:id="@+id/buttonR"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ր" />
+
+        <Button
+                android:id="@+id/buttonT"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="տ" />
+
+        <Button
+                android:id="@+id/buttonY"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ը" />
+
+        <Button
+                android:id="@+id/buttonU"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ու" />
+
+        <Button
+                android:id="@+id/buttonI"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="ի" />
+
+        <Button
+                android:id="@+id/buttonO"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="օ" />
+
+        <Button
+                android:id="@+id/buttonP"
+                style="@style/KeyboardButtonNormal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="պ" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <Button
+            android:id="@+id/buttonQ"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="ա" />
+
+        <Button
+            android:id="@+id/buttonS"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="ս" />
+
+        <Button
+            android:id="@+id/buttonD"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="դ" />
+
+        <Button
+            android:id="@+id/buttonF"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="ֆ" />
+
+        <Button
+            android:id="@+id/buttonG"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="գ" />
+
+        <Button
+            android:id="@+id/buttonH"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="հ" />
+
+        <Button
+            android:id="@+id/buttonJ"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="յ" />
+
+        <Button
+            android:id="@+id/buttonK"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="կ" />
+
+        <Button
+            android:id="@+id/buttonL"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="լ" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:id="@+id/buttonDRAFT"
+            style="@style/KeyboardButtonSpecial"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_keyboard_draft_release_unlock"
+            android:src="@drawable/keyboard_draft" />
+
+        <Button
+            android:id="@+id/buttonW"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="զ" />
+
+        <Button
+            android:id="@+id/buttonX"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="ղ" />
+
+        <Button
+            android:id="@+id/buttonC"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="ց" />
+
+        <Button
+            android:id="@+id/buttonV"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="վ" />
+
+        <Button
+            android:id="@+id/buttonB"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="բ" />
+
+        <Button
+            android:id="@+id/buttonN"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="ն" />
+
+        <Button
+            android:id="@+id/buttonM"
+            style="@style/KeyboardButtonNormal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="մ" />
+
+        <ImageButton
+            android:id="@+id/buttonDELETE"
+            style="@style/KeyboardButtonSpecial"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.9"
+            android:background="@drawable/btn_keyboard_delete_release"
+            android:contentDescription="DEL"
+            android:src="@drawable/keyboard_delete" />
+    </LinearLayout>
+
+</LinearLayout>

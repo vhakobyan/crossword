@@ -11,86 +11,86 @@
         {
           "x": "0",
           "y": "0",
-          "description": "Terminer triomphalement",
-          "text": "նապաստակ"
+          "text": "Terminer triomphalement",
+          "description": "նապաստակ"
         },
         {
           "x": "2",
           "y": "1",
-          "description": "նապաստակ նապաստակ",
-          "text": "ceans"
+          "text": "նապաստակ նապաստակ",
+          "description": "ceans"
         },
         {
           "x": "0",
           "y": "2",
-          "description": "Enferma",
-          "text": "barricada"
+          "text": "Enferma",
+          "description": "barricada"
         },
         {
           "x": "0",
           "y": "3",
-          "description": "Colère",
-          "text": "ire"
+          "text": "Colère",
+          "description": "ire"
         },
         {
           "x": "4",
           "y": "3",
-          "description": "Le tien",
-          "text": "ta"
+          "text": "Le tien",
+          "description": "ta"
         },
         {
           "x": "7",
           "y": "3",
-          "description": "Badine",
-          "text": "ri"
+          "text": "Badine",
+          "description": "ri"
         },
         {
           "x": "0",
           "y": "4",
-          "description": "Aigre",
-          "text": "amer"
+          "text": "Aigre",
+          "description": "amer"
         },
         {
           "x": "5",
           "y": "4",
-          "description": "Découpe",
-          "text": "scie"
+          "text": "Découpe",
+          "description": "scie"
         },
         {
           "x": "0",
           "y": "5",
-          "description": "Non",
-          "text": "ne"
+          "text": "Non",
+          "description": "ne"
         },
         {
           "x": "3",
           "y": "5",
-          "description": "Matière précieuse",
-          "text": "or"
+          "text": "Matière précieuse",
+          "description": "or"
         },
         {
           "x": "6",
           "y": "5",
-          "description": "Avion sans moteur",
-          "text": "ulm"
+          "text": "Avion sans moteur",
+          "description": "ulm"
         },
         {
           "x": "0",
           "y": "6",
-          "description": "Alligator",
-          "text": "crocodile"
+          "text": "Alligator",
+          "description": "crocodile"
         },
         {
           "x": "2",
           "y": "7",
-          "description": "Faire des nœuds",
-          "text": "nouer"
+          "text": "Faire des nœuds",
+          "description": "nouer"
         },
         {
           "x": "0",
           "y": "8",
-          "description": "Repérait",
-          "text": "situerait"
+          "text": "Repérait",
+          "description": "situerait"
         }
       ]
     },
@@ -99,86 +99,86 @@
         {
           "x": "0",
           "y": "0",
-          "description": "Atmosphères d'un lieu",
-          "text": "ambiances"
+          "text": "Atmosphères d'un lieu",
+          "description": "ambiances"
         },
         {
           "x": "1",
           "y": "2",
-          "description": "Équiper",
-          "text": "armer"
+          "text": "Équiper",
+          "description": "armer"
         },
         {
           "x": "2",
           "y": "0",
-          "description": "Qui est coloré de jaune",
-          "text": "ocree"
+          "text": "Qui est coloré de jaune",
+          "description": "ocree"
         },
         {
           "x": "2",
           "y": "6",
-          "description": "Être en possession",
-          "text": "ont"
+          "text": "Être en possession",
+          "description": "ont"
         },
         {
           "x": "3",
           "y": "0",
-          "description": "Transport régional",
-          "text": "ter"
+          "text": "Transport régional",
+          "description": "ter"
         },
         {
           "x": "3",
           "y": "4",
-          "description": "Colorant rouge orangé",
-          "text": "rocou"
+          "text": "Colorant rouge orangé",
+          "description": "rocou"
         },
         {
           "x": "4",
           "y": "0",
-          "description": "Déteste",
-          "text": "hait"
+          "text": "Déteste",
+          "description": "hait"
         },
         {
           "x": "4",
           "y": "5",
-          "description": "Disque tournant",
-          "text": "roue"
+          "text": "Disque tournant",
+          "description": "roue"
         },
         {
           "x": "5",
           "y": "0",
-          "description": "Repas léger",
-          "text": "encas"
+          "text": "Repas léger",
+          "description": "encas"
         },
         {
           "x": "5",
           "y": "6",
-          "description": "Région de Champagne",
-          "text": "der"
+          "text": "Région de Champagne",
+          "description": "der"
         },
         {
           "x": "6",
           "y": "0",
-          "description": "Tenta",
-          "text": "osa"
+          "text": "Tenta",
+          "description": "osa"
         },
         {
           "x": "6",
           "y": "4",
-          "description": "Chauffera",
-          "text": "cuira"
+          "text": "Chauffera",
+          "description": "cuira"
         },
         {
           "x": "7",
           "y": "2",
-          "description": "Cousin mandrill",
-          "text": "drill"
+          "text": "Cousin mandrill",
+          "description": "drill"
         },
         {
           "x": "8",
           "y": "0",
-          "description": "Fait d'étayer",
-          "text": "etaiement"
+          "text": "Fait d'étayer",
+          "description": "etaiement"
         }
       ]
     }

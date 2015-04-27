@@ -5,36 +5,33 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.myapp.KeyboardView;
+import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
 import com.example.myapp.data.Grid;
 import com.example.myapp.data.Word;
-import com.example.myapp.pars.CrosswordParser;
-import com.example.myapp.pars.GridParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import android.view.View.OnTouchListener;
+public class GameActivity extends Activity implements OnTouchListener, KeyboardViewInterface {
 
-public class GameActivity extends Activity implements OnTouchListener {
-
-    public static final String GRID_LOCAL_PATH = "/data/data/com.example.myapp/grid/%s";
-    public static final String GRID_DIRECTORY = "/data/data/ccom.example.myapp/grid/";
+    public static final float 	KEYBOARD_OVERLAY_OFFSET = 90;
 
     public enum GRID_MODE {NORMAL, CHECK, SOLVE}
 
@@ -42,6 +39,7 @@ public class GameActivity extends Activity implements OnTouchListener {
     public GRID_MODE currentMode = GRID_MODE.NORMAL;
 
     private GridView gridView;
+    private KeyboardView 	keyboardView;
     private GameGridAdapter gridAdapter;
     private TextView txtDescription;
     private TextView keyboardOverlay;
@@ -144,11 +142,11 @@ public class GameActivity extends Activity implements OnTouchListener {
             this.gridAdapter = new GameGridAdapter(this, this.entries, this.width, this.height);
             this.gridView.setAdapter(this.gridAdapter);
 
-//            this.keyboardView = (KeyboardView)findViewById(R.id.keyboard);
-//            this.keyboardView.setDelegate(this);
-//            android.view.ViewGroup.LayoutParams KeyboardParams = this.keyboardView.getLayoutParams();
-//            KeyboardParams.height = keyboardHeight;
-//            this.keyboardView.setLayoutParams(KeyboardParams);
+            this.keyboardView = (KeyboardView)findViewById(R.id.keyboard);
+            this.keyboardView.setDelegate(this);
+            android.view.ViewGroup.LayoutParams KeyboardParams = this.keyboardView.getLayoutParams();
+            KeyboardParams.height = keyboardHeight;
+            this.keyboardView.setLayoutParams(KeyboardParams);
 //            this.keyboardOverlay = (TextView)findViewById(R.id.keyboard_overlay);
 
         } catch (Exception e) {
@@ -316,5 +314,80 @@ public class GameActivity extends Activity implements OnTouchListener {
             return (horizontalWord != null) ? horizontalWord : verticalWord;
         else
             return (verticalWord != null) ? verticalWord : horizontalWord;
+    }
+
+    @Override
+    public void onKeyDown(String value, int[] location, int width) {
+
+        System.out.println("onKeyDown: " + value + ", insert in: " + currentX + "x" + currentY);
+
+        // Deplace l'overlay du clavier
+        if (value.equals(" ") == false) {
+            int offsetX = (this.keyboardOverlay.getWidth() - width) / 2;
+            int offsetY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, KEYBOARD_OVERLAY_OFFSET, getResources().getDisplayMetrics());
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)this.keyboardOverlay.getLayoutParams();
+            lp.leftMargin = location[0] - offsetX;
+            lp.topMargin = location[1] - offsetY;
+            this.keyboardOverlay.setLayoutParams(lp);
+            this.keyboardOverlay.setText(value);
+            this.keyboardOverlay.clearAnimation();
+            this.keyboardOverlay.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    public void onKeyUp(String value) {
+
+        System.out.println("onKeyUp: " + value + ", insert in: " + currentX + "x" + currentY);
+
+        // Efface l'overlay du clavier
+        if (value.equals(" ") == false) {
+            this.keyboardOverlay.setAnimation(AnimationUtils.loadAnimation(this, R.anim.keyboard_overlay_fade_out));
+            this.keyboardOverlay.setVisibility(View.INVISIBLE);
+        }
+
+        // Si aucun mot selectionne, retour
+        if (this.currentWord == null)
+            return;
+
+        // Case actuelle
+        int x = this.currentX;
+        int y = this.currentY;
+
+        // Si la case est noire => retour
+        if (this.gridAdapter.isBlock(x, y))
+            return;
+
+        // Ecrit la lettre sur le "curseur"
+        this.gridAdapter.setValue(x, y, value);
+        this.gridAdapter.notifyDataSetChanged();
+
+        // Deplace sur le "curseur" sur la case precendante (effacer), ou suivante (lettres)
+        if (value.equals(" ")) {
+            x = (this.horizontal ? x - 1 : x);
+            y = (this.horizontal ? y: y - 1);
+        }
+        else
+        {
+            x = (this.horizontal ? x + 1 : x);
+            y = (this.horizontal ? y: y + 1);
+        }
+
+        // Si la case suivante est disponible, met la case en jaune, remet l'ancienne en bleu, et set la nouvelle position
+        if (x >= 0 && x < this.width
+                && y >= 0 && y < this.height
+                && this.gridAdapter.isBlock(x, y) == false) {
+            this.gridView.getChildAt(y * this.width + x).setBackgroundResource(R.drawable.area_current);
+            this.gridView.getChildAt(this.currentY * this.width + this.currentX).setBackgroundResource(R.drawable.area_selected);
+            this.currentX = x;
+            this.currentY = y;
+        }
+
+    }
+
+    @Override
+    public void setDraft(boolean isDraft) {
+
     }
 }

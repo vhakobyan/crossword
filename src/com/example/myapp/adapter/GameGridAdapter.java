@@ -123,7 +123,7 @@ public class GameGridAdapter extends BaseAdapter {
         // Si la grille est en mode check, colore les fautes en rouge
         if (((GameActivity) context).currentMode == GameActivity.GRID_MODE.CHECK) {
             if (data != null) {
-                v.setTextColor(context.getResources().getColor(data.equalsIgnoreCase(correction) ? R.color.normal : R.color.wrong));
+                v.setTextColor(context.getResources().getColor(data.equalsIgnoreCase(correction) ? R.color.normal : R.color.red));
                 v.setText(this.isLower ? data.toLowerCase() : data.toUpperCase());
             }
         }
@@ -133,7 +133,7 @@ public class GameGridAdapter extends BaseAdapter {
                 v.setTextColor(context.getResources().getColor(R.color.normal));
                 v.setText(this.isLower ? data.toLowerCase() : data.toUpperCase());
             } else if (correction != null) {
-                v.setTextColor(context.getResources().getColor(R.color.right));
+                v.setTextColor(context.getResources().getColor(R.color.green));
                 v.setText(this.isLower ? correction.toLowerCase() : correction.toUpperCase());
             }
         }

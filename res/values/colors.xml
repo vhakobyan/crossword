@@ -3,8 +3,9 @@
 
     <color name="normal">#000</color>
     <color name="draft">#999</color>
-    <color name="wrong">#F00</color>
-    <color name="right">#0F0</color>
     <color name="gridlist_divider">#BBB</color>
+
+    <color name="red">#F00</color>
+    <color name="green">#0F0</color>
 
 </resources>
