@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -70,6 +71,8 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.game);
 
         readPreferences();
@@ -103,8 +106,8 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 word = new Word();
                 word.setX(Integer.valueOf(String.valueOf(obj.get("x"))));
                 word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
-                word.setDescription(String.valueOf(obj.get("text")));
-                word.setText(String.valueOf(obj.get("description")));
+                word.setDescription(String.valueOf(obj.get("description")));
+                word.setText(String.valueOf(obj.get("text")));
                 word.setHorizontal(true);
                 words.add(word);
             }
@@ -114,8 +117,8 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 word = new Word();
                 word.setX(Integer.valueOf(String.valueOf(obj.get("x"))));
                 word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
-                word.setDescription(String.valueOf(obj.get("text")));
-                word.setText(String.valueOf(obj.get("description")));
+                word.setDescription(String.valueOf(obj.get("description")));
+                word.setText(String.valueOf(obj.get("text")));
                 word.setHorizontal(false);
                 words.add(word);
             }
@@ -131,6 +134,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             int keyboardHeight = (int) (height / 4.4);
 
             this.txtDescription = (TextView) findViewById(R.id.description);
+            this.txtDescription.setText(R.string.lblPleaseTouch);
 
             this.gridView = (GridView) findViewById(R.id.grid);
             this.gridView.setOnTouchListener(this);

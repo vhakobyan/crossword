@@ -10,11 +10,11 @@
         <TextView
                 android:id="@+id/description"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:padding="5dp"
-                android:background="@color/red"
+                android:padding="3dp"
+                android:textStyle="bold"
                 android:textColor="#DDDDDD"/>
 
         <GridView
