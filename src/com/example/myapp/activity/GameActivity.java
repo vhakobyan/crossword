@@ -12,10 +12,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.example.myapp.KeyboardView;
 import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
@@ -151,7 +148,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             android.view.ViewGroup.LayoutParams KeyboardParams = this.keyboardView.getLayoutParams();
             KeyboardParams.height = keyboardHeight;
             this.keyboardView.setLayoutParams(KeyboardParams);
-//            this.keyboardOverlay = (TextView)findViewById(R.id.keyboard_overlay);
+            this.keyboardOverlay = (TextView)findViewById(R.id.keyboard_overlay);
 
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -199,11 +196,16 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     @Override
     public boolean onTouch(View view, MotionEvent event) {
 
+        int x1 = (int) event.getX();
+        int y1 = (int) event.getY();
+        int position = this.gridView.pointToPosition(x1, y1);
+
+
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN: {
 
-                int position = this.gridView.pointToPosition((int) event.getX(), (int) event.getY());
+
                 View child = this.gridView.getChildAt(position);
 
                 // Si pas de mot sur cette case (= case noire), aucun traitement
@@ -240,7 +242,6 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 if (this.downIsPlayable == false)
                     return true;
 
-                int position = this.gridView.pointToPosition((int) event.getX(), (int) event.getY());
                 int x = position % this.width;
                 int y = position / this.width;
                 Log.i("TAG", "ACTION_DOWN, x:" + x + ", y:" + y + ", position: " + position);
@@ -329,13 +330,13 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         if (value.equals(" ") == false) {
             int offsetX = (this.keyboardOverlay.getWidth() - width) / 2;
             int offsetY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, KEYBOARD_OVERLAY_OFFSET, getResources().getDisplayMetrics());
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)this.keyboardOverlay.getLayoutParams();
-            lp.leftMargin = location[0] - offsetX;
-            lp.topMargin = location[1] - offsetY;
-            this.keyboardOverlay.setLayoutParams(lp);
-            this.keyboardOverlay.setText(value);
-            this.keyboardOverlay.clearAnimation();
-            this.keyboardOverlay.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)this.keyboardOverlay.getLayoutParams();
+//            lp.leftMargin = location[0] - offsetX;
+//            lp.topMargin = location[1] - offsetY;
+//            this.keyboardOverlay.setLayoutParams(lp);
+//            this.keyboardOverlay.setText(value);
+//            this.keyboardOverlay.clearAnimation();
+//            this.keyboardOverlay.setVisibility(View.VISIBLE);
         }
 
     }
