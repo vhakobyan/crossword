@@ -1,96 +1,48 @@
 {
   "grid": {
-    "name": "Grille 1",
-    "date": "03/01/2012",
-    "author": "Isshun",
+    "name": "Խաչբար",
+    "date": "03/01/2015",
+    "author": "Վահագ",
     "level": "1",
-    "width": "9",
+    "width": "10",
     "height": "9",
     "horizontal": {
       "word": [
         {
-          "x": "0",
+          "x": "4",
           "y": "0",
-          "text": "Terminer triomphalement",
-          "description": "նապաստակ"
-        },
-        {
-          "x": "2",
-          "y": "1",
-          "text": "նապաստակ նապաստակ",
-          "description": "ceans"
+          "description": "3.Եվ ձևացնող, և զեղծարար, և սուտասան։ 6 տառ",
+          "text": "ստահակ"
         },
         {
           "x": "0",
-          "y": "2",
-          "text": "Enferma",
-          "description": "barricada"
+          "y": "1",
+          "description": "9.Մադրիդի աշխառահրչակ պատկերասրահի անունը։ 5 տառ",
+          "text": "աբգդե"
         },
         {
           "x": "0",
           "y": "3",
-          "text": "Colère",
-          "description": "ire"
+          "description": "15.Կինոթատրոն տոնավաճար Երևանում։ 5 տառ",
+          "text": "Ռոսիա"
+        },
+        {
+          "x": "0",
+          "y": "5",
+          "description": "18.Տես Նկարը 4 տառ",
+          "text": "Նկար"
+        },
+        {
+          "x": "0",
+          "y": "7",
+          "description": "25.Ֆուտբոլիստ Մովսիյանի անունը 4 տառ",
+          "text": "Յորա"
         },
         {
           "x": "4",
-          "y": "3",
-          "text": "Le tien",
-          "description": "ta"
-        },
-        {
-          "x": "7",
-          "y": "3",
-          "text": "Badine",
-          "description": "ri"
-        },
-        {
-          "x": "0",
-          "y": "4",
-          "text": "Aigre",
-          "description": "amer"
-        },
-        {
-          "x": "5",
-          "y": "4",
-          "text": "Découpe",
-          "description": "scie"
-        },
-        {
-          "x": "0",
-          "y": "5",
-          "text": "Non",
-          "description": "ne"
-        },
-        {
-          "x": "3",
-          "y": "5",
-          "text": "Matière précieuse",
-          "description": "or"
-        },
-        {
-          "x": "6",
-          "y": "5",
-          "text": "Avion sans moteur",
-          "description": "ulm"
-        },
-        {
-          "x": "0",
-          "y": "6",
-          "text": "Alligator",
-          "description": "crocodile"
-        },
-        {
-          "x": "2",
-          "y": "7",
-          "text": "Faire des nœuds",
-          "description": "nouer"
-        },
-        {
-          "x": "0",
-          "y": "8",
-          "text": "Repérait",
-          "description": "situerait"
+          "y": "2",
+          "description": "12.Սասունցի Դավիթի ձին Քուռիկ ․․․ 6 տառ",
+          "text": "Ջալալի"
         }
       ]
     },
@@ -99,87 +51,45 @@
         {
           "x": "0",
           "y": "0",
-          "text": "Atmosphères d'un lieu",
-          "description": "ambiances"
-        },
-        {
-          "x": "1",
-          "y": "2",
-          "text": "Équiper",
-          "description": "armer"
+          "description": "1.Վերջնական, ավարտուն պատասխան։ 6 տառ",
+          "text": "ambian"
         },
         {
           "x": "2",
           "y": "0",
-          "text": "Qui est coloré de jaune",
-          "description": "ocree"
-        },
-        {
-          "x": "2",
-          "y": "6",
-          "text": "Être en possession",
-          "description": "ont"
-        },
-        {
-          "x": "3",
-          "y": "0",
-          "text": "Transport régional",
-          "description": "ter"
-        },
-        {
-          "x": "3",
-          "y": "4",
-          "text": "Colorant rouge orangé",
-          "description": "rocou"
+          "description": "2.Ահավոր զգացում, որ ոչ թե Հիչքոքի Ֆիլմերից, այլ սեփական կյանքից է ծանոթ մեր ժողովրդին։ 6տառ",
+          "text": "armerտ"
         },
         {
           "x": "4",
           "y": "0",
-          "text": "Déteste",
-          "description": "hait"
-        },
-        {
-          "x": "4",
-          "y": "5",
-          "text": "Disque tournant",
-          "description": "roue"
-        },
-        {
-          "x": "5",
-          "y": "0",
-          "text": "Repas léger",
-          "description": "encas"
-        },
-        {
-          "x": "5",
-          "y": "6",
-          "text": "Région de Champagne",
-          "description": "der"
+          "description": "3.«Ես ․․․, յարս ․․․ արեվուդ մեռնեմ» երգ,։ 4տառ",
+          "text": "Փոքր"
         },
         {
           "x": "6",
           "y": "0",
-          "text": "Tenta",
-          "description": "osa"
-        },
-        {
-          "x": "6",
-          "y": "4",
-          "text": "Chauffera",
-          "description": "cuira"
-        },
-        {
-          "x": "7",
-          "y": "2",
-          "text": "Cousin mandrill",
-          "description": "drill"
+          "description": "4.Երկրաշարժի ուժգնության միավոր։ 4տառ",
+          "text": "բալլ"
         },
         {
           "x": "8",
           "y": "0",
-          "text": "Fait d'étayer",
-          "description": "etaiement"
-        }
+          "description": "5.Չալոյի, Մստոյի Ընկեր մուկը։ 4տառ",
+          "text": "բալո"
+        },
+        {
+          "x": "9",
+          "y": "2",
+          "description": "13.Այդպես կարելի է անվանել ընթրիքը։ 9 տառ",
+          "text": "Չաշկերույթ"
+        },
+         {
+           "x": "1",
+           "y": "5",
+           "description": "19.Իյաի «կենդանական պատկանելությունը» հայտնի մուլտֆիլմում։ 4 տառ",
+           "text": "Իշակ"
+         }
       ]
     }
   }
