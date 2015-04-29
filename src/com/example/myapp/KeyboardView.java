@@ -81,7 +81,12 @@ public class KeyboardView extends LinearLayout implements OnTouchListener {
 		this.findViewById(R.id.buttonX).setOnTouchListener(this);
 		this.findViewById(R.id.buttonY).setOnTouchListener(this);
 		this.findViewById(R.id.buttonZ).setOnTouchListener(this);
-		this.findViewById(R.id.buttonDRAFT).setOnTouchListener(this);
+		this.findViewById(R.id.buttonXh).setOnTouchListener(this);
+        this.findViewById(R.id.buttonSh).setOnTouchListener(this);
+
+        this.findViewById(R.id.buttonTS).setOnTouchListener(this);
+
+
 		this.findViewById(R.id.buttonDELETE).setOnTouchListener(this);
 	}
 
@@ -104,34 +109,37 @@ public class KeyboardView extends LinearLayout implements OnTouchListener {
                     case R.id.button08: this.value = "չ"; break;
                     case R.id.button09: this.value = "ճ"; break;
                     case R.id.button10: this.value = "ժ"; break;
-                    case R.id.buttonA: this.value = "A"; break;
-                    case R.id.buttonB: this.value = "B"; break;
-                    case R.id.buttonC: this.value = "C"; break;
-                    case R.id.buttonD: this.value = "D"; break;
-                    case R.id.buttonE: this.value = "E"; break;
-                    case R.id.buttonF: this.value = "F"; break;
-                    case R.id.buttonG: this.value = "G"; break;
-                    case R.id.buttonH: this.value = "H"; break;
-                    case R.id.buttonI: this.value = "I"; break;
-                    case R.id.buttonJ: this.value = "J"; break;
-                    case R.id.buttonK: this.value = "K"; break;
-                    case R.id.buttonL: this.value = "L"; break;
-                    case R.id.buttonM: this.value = "M"; break;
-                    case R.id.buttonN: this.value = "N"; break;
-                    case R.id.buttonO: this.value = "O"; break;
-                    case R.id.buttonP: this.value = "P"; break;
-                    case R.id.buttonQ: this.value = "Q"; break;
-                    case R.id.buttonR: this.value = "R"; break;
-                    case R.id.buttonS: this.value = "S"; break;
-                    case R.id.buttonT: this.value = "T"; break;
-                    case R.id.buttonU: this.value = "U"; break;
-                    case R.id.buttonV: this.value = "V"; break;
-                    case R.id.buttonW: this.value = "W"; break;
-                    case R.id.buttonX: this.value = "X"; break;
-                    case R.id.buttonY: this.value = "Y"; break;
-                    case R.id.buttonZ: this.value = "Z"; break;
+                    case R.id.buttonA: this.value = "ք"; break;
+                    case R.id.buttonB: this.value = "բ"; break;
+                    case R.id.buttonC: this.value = "ց"; break;
+                    case R.id.buttonD: this.value = "դ"; break;
+                    case R.id.buttonE: this.value = "ե"; break;
+                    case R.id.buttonF: this.value = "ֆ"; break;
+                    case R.id.buttonG: this.value = "գ"; break;
+                    case R.id.buttonH: this.value = "հ"; break;
+                    case R.id.buttonI: this.value = "ի"; break;
+                    case R.id.buttonJ: this.value = "յ"; break;
+                    case R.id.buttonK: this.value = "կ"; break;
+                    case R.id.buttonL: this.value = "լ"; break;
+                    case R.id.buttonM: this.value = "մ"; break;
+                    case R.id.buttonN: this.value = "ն"; break;
+                    case R.id.buttonO: this.value = "օ"; break;
+                    case R.id.buttonP: this.value = "պ"; break;
+                    case R.id.buttonQ: this.value = "ա"; break;
+                    case R.id.buttonR: this.value = "ռ"; break;
+                    case R.id.buttonS: this.value = "ս"; break;
+                    case R.id.buttonT: this.value = "տ"; break;
+                    case R.id.buttonU: this.value = "ու"; break;
+                    case R.id.buttonV: this.value = "վ"; break;
+                    case R.id.buttonW: this.value = "զ"; break;
+                    case R.id.buttonX: this.value = "ղ"; break;
+                    case R.id.buttonY: this.value = "ը"; break;
+                    case R.id.buttonZ: this.value = "ո"; break;
+                    case R.id.buttonSh: this.value = "շ"; break;
+                    case R.id.buttonTS: this.value = "ծ"; break;
+                    case R.id.buttonXh: this.value = "խ"; break;
+
                     case R.id.buttonDELETE: this.value = null; break;
-                    case R.id.buttonDRAFT: this.value = null; break;
         		}
 
         		this.currentView = v;
@@ -141,10 +149,10 @@ public class KeyboardView extends LinearLayout implements OnTouchListener {
         		// Change key background (selector actually doesn't work with KeyboardView)
         		if (v.getId() == R.id.buttonDELETE)
         			this.currentView.setBackgroundResource(R.drawable.btn_keyboard_delete_pressed);
-        		else if (v.getId() == R.id.buttonDRAFT)
+        		/*else if (v.getId() == R.id.buttonDRAFT)
         			this.currentView.setBackgroundResource(this.isDraft
         					? R.drawable.btn_keyboard_draft_pressed_lock
-        							: R.drawable.btn_keyboard_draft_pressed_lock);
+        							: R.drawable.btn_keyboard_draft_pressed_lock);*/
         		else
         			this.currentView.setBackgroundResource(R.drawable.btn_keyboard_pressed);
 
@@ -159,19 +167,19 @@ public class KeyboardView extends LinearLayout implements OnTouchListener {
         		case R.id.buttonDELETE:
             		this.delegate.onKeyUp(" ");
         			break;
-        		case R.id.buttonDRAFT:
+        		/*case R.id.buttonDRAFT:
         			this.isDraft = !this.isDraft;
         			this.delegate.setDraft(this.isDraft);
-        			break;
+        			break;*/
         		}
 
         		// Change key background (selector actually doesn't work with KeyboardView)
         		if (v.getId() == R.id.buttonDELETE)
         			this.currentView.setBackgroundResource(R.drawable.btn_keyboard_delete_release);
-        		else if (v.getId() == R.id.buttonDRAFT)
+        		/*else if (v.getId() == R.id.buttonDRAFT)
         			this.currentView.setBackgroundResource(this.isDraft
         					? R.drawable.btn_keyboard_draft_release_lock
-        							: R.drawable.btn_keyboard_draft_release_unlock);
+        							: R.drawable.btn_keyboard_draft_release_unlock);*/
         		else
         			this.currentView.setBackgroundResource(R.drawable.btn_keyboard_release);
 

@@ -31,9 +31,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
     public static final float 	KEYBOARD_OVERLAY_OFFSET = 90;
 
-    public enum GRID_MODE {NORMAL, CHECK, SOLVE}
-
-    ;
+    public enum GRID_MODE {NORMAL, CHECK, SOLVE};
     public GRID_MODE currentMode = GRID_MODE.NORMAL;
 
     private GridView gridView;
@@ -43,23 +41,23 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     private TextView keyboardOverlay;
 
     private Grid grid;
-    private ArrayList<Word> entries;        // Liste des mots
-    private ArrayList<View> selectedArea = new ArrayList<View>(); // Liste des cases selectionnées
+    private ArrayList<Word> entries;        // List words
+    private ArrayList<View> selectedArea = new ArrayList<View>(); // List of selection boxes
 
-    private boolean downIsPlayable;    // false si le joueur à appuyé sur une case noire
-    private int downPos;        // Position ou le joueur à appuyé
-    private int downX;            // Ligne ou le joueur à appuyé
-    private int downY;            // Colonne ou le joueur à appuyé
-    private int currentPos;        // Position actuelle du curseur
-    private int currentX;        // Colonne actuelle du curseur
-    private int currentY;        // Ligne actuelle du curseur
-    private Word currentWord;    // Mot actuellement selectionné
-    private boolean horizontal;        // Sens de la selection
+    private boolean downIsPlayable;    // false if the player pressed a black box
+    private int downPos;        // Position or player supported
+    private int downX;            //Line or player supported
+    private int downY;            // Column or player supported
+    private int currentPos;        // Current cursor position
+    private int currentX;        // Current column of the cursor
+    private int currentY;        // Current cursor line
+    private Word currentWord;    //Currently selected word
+    private boolean horizontal;        // Direction of selection
 
-    private String filename;        // Nom de la grille
+    private String filename;        // Name of the gate
 
     private boolean solidSelection;    // PREFERENCES: Selection persistante
-    private boolean gridIsLower;    // PREFERENCES: Grille en minuscule
+    private boolean gridIsLower;    // PREFERENCES: Tiny grid
 
     private int width;
     private int height;
