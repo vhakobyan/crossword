@@ -45,26 +45,42 @@ public class GameGridAdapter extends BaseAdapter {
         this.displayHeight = display.getWidth() / this.width;
 
         // Fill area and areaCorrection
+        int k = 1;
+        int k1 = 1;
         this.area = new String[this.height][this.width];
         this.correctionArea = new String[this.height][this.width];
         for (Word entry : entries) {
             String tmp = entry.getTmp();
             String text = entry.getText();
+            String title = entry.getTitle();
             boolean horizontal = entry.getHorizontal();
             int x = entry.getX();
             int y = entry.getY();
 
             for (int i = 0; i < entry.getLength(); i++) {
+
                 if (horizontal) {
                     if (y >= 0 && y < this.height && x + i >= 0 && x + i < this.width) {
-                        this.area[y][x + i] = tmp != null ? String.valueOf(tmp.charAt(i)) : " ";
+                        //this.area[y][x + i] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
+                        if(tmp != null){
+                            this.area[y][x + i] = String.valueOf(tmp.charAt(i));
+                        } else {
+                            this.area[y][x + i] = (i == 0) ? title : " ";
+                        }
                         this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
                     }
+
                 } else {
                     if (y + i >= 0 && y + i < this.height && x >= 0 && x < this.width) {
-                        this.area[y + i][x] = tmp != null ? String.valueOf(tmp.charAt(i)) : " ";
+                        //this.area[y + i][x] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
+                        if(tmp != null){
+                            this.area[y + i][x] = String.valueOf(tmp.charAt(i));
+                        } else {
+                            this.area[y + i][x] = (i == 0) ? title : " ";
+                        }
                         this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
                     }
+
                 }
             }
         }

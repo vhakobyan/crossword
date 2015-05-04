@@ -103,6 +103,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
                 word.setDescription(String.valueOf(obj.get("description")));
                 word.setText(String.valueOf(obj.get("text")));
+                word.setTitle(String.valueOf(obj.get("title")));
                 word.setHorizontal(true);
                 words.add(word);
             }
@@ -114,6 +115,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
                 word.setDescription(String.valueOf(obj.get("description")));
                 word.setText(String.valueOf(obj.get("text")));
+                word.setTitle(String.valueOf(obj.get("title")));
                 word.setHorizontal(false);
                 words.add(word);
             }

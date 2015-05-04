@@ -6,12 +6,16 @@ public class Word {
 	private int		length;
 	private String	tmp;
 	private String	text;
+    private String	title;
 	private String	description;
 	private boolean	horizontal = true;
 	
 	public void		setText(String value) { this.text = value; this.length = value.length(); }
 	public String	getText() { return this.text; }
-	
+
+    public void		setTitle(String value) { this.title = value; }
+    public String	getTitle() { return this.title; }
+
 	public void		setTmp(String value) { this.tmp = value; }
 	public String	getTmp() { return this.tmp; }
 	
