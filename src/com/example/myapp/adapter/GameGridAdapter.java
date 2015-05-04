@@ -81,7 +81,8 @@ public class GameGridAdapter extends BaseAdapter {
                             this.area[y][x + i] = String.valueOf(tmp.charAt(i));
                         } else {
                             this.area[y][x + i] = " ";
-                            this.bgData[y][x + i] = (i == 0) ? title : "";
+                            if (i == 0) this.bgData[y][x + i] = title;
+                            else if(this.bgData[y][x + i] == null) this.bgData[y][x + i] = "";
                         }
                         this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
                     }
@@ -93,7 +94,8 @@ public class GameGridAdapter extends BaseAdapter {
                             this.area[y + i][x] = String.valueOf(tmp.charAt(i));
                         } else {
                             this.area[y + i][x] = " ";
-                            this.bgData[y + i][x] = (i == 0) ? title : "";
+                            if (i == 0) this.bgData[y + i][x] = title;
+                            else if(this.bgData[y + i][x] == null) this.bgData[y + i][x] = "";
                         }
                         this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
                     }
