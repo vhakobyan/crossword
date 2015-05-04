@@ -16,24 +16,38 @@ import com.example.myapp.activity.GameActivity;
 import com.example.myapp.R;
 import com.example.myapp.data.Word;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameGridAdapter extends BaseAdapter {
 
+
+
     public static final int AREA_BLOCK = -1;
     public static final int AREA_WRITABLE = 0;
     private HashMap<Integer, TextView> views = new HashMap<Integer, TextView>();
     private Context context;
+    // user letters
     private String[][] area;            // Tableau représentant les lettres du joueur
+    // right letters
     private String[][] correctionArea; // Tableau représentant les lettres correctes
+
+    private String[][] bgData;
+
     private boolean isLower;
     private boolean isDraft;
     private int displayHeight;
     private int width;
     private int height;
 
+    ArrayList<Word> entries;
+
+
     public GameGridAdapter(Activity act, ArrayList<Word> entries, int width, int height) {
+
+        this.entries = entries;
+
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(act);
         this.isLower = preferences.getBoolean("grid_is_lower", false);
         this.context = (Context) act;
@@ -45,11 +59,12 @@ public class GameGridAdapter extends BaseAdapter {
         this.displayHeight = display.getWidth() / this.width;
 
         // Fill area and areaCorrection
-        int k = 1;
-        int k1 = 1;
         this.area = new String[this.height][this.width];
+        this.bgData = new String[this.height][this.width];
         this.correctionArea = new String[this.height][this.width];
+
         for (Word entry : entries) {
+
             String tmp = entry.getTmp();
             String text = entry.getText();
             String title = entry.getTitle();
@@ -65,7 +80,8 @@ public class GameGridAdapter extends BaseAdapter {
                         if(tmp != null){
                             this.area[y][x + i] = String.valueOf(tmp.charAt(i));
                         } else {
-                            this.area[y][x + i] = (i == 0) ? title : " ";
+                            this.area[y][x + i] = " ";
+                            this.bgData[y][x + i] = (i == 0) ? title : "";
                         }
                         this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
                     }
@@ -76,7 +92,8 @@ public class GameGridAdapter extends BaseAdapter {
                         if(tmp != null){
                             this.area[y + i][x] = String.valueOf(tmp.charAt(i));
                         } else {
-                            this.area[y + i][x] = (i == 0) ? title : " ";
+                            this.area[y + i][x] = " ";
+                            this.bgData[y + i][x] = (i == 0) ? title : "";
                         }
                         this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
                     }
@@ -116,6 +133,7 @@ public class GameGridAdapter extends BaseAdapter {
         int y = (int) (position / this.width);
         int x = (int) (position % this.width);
         String data = this.area[y][x];
+        String bgData = this.bgData[y][x];
         String correction = this.correctionArea[y][x];
 
         // Creation du composant
@@ -125,8 +143,11 @@ public class GameGridAdapter extends BaseAdapter {
             v.setTextSize((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4 ? 30 : 20);
             v.setGravity(Gravity.CENTER);
 
-            if (data != null) {
+            if (bgData != null && "".equals(bgData)) {
                 v.setBackgroundResource(R.drawable.area_empty);
+                v.setTag(AREA_WRITABLE);
+            } else if (bgData != null && bgData.trim().length() > 0) {
+                v.setBackgroundResource(getId("cell_" + bgData, R.drawable.class));
                 v.setTag(AREA_WRITABLE);
             } else {
                 v.setBackgroundResource(R.drawable.area_block);
@@ -213,4 +234,12 @@ public class GameGridAdapter extends BaseAdapter {
         this.isDraft = value;
     }
 
+    public static int getId(String resourceName, Class<?> c) {
+        try {
+            Field idField = c.getDeclaredField(resourceName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            throw new RuntimeException("No resource ID found for: " + resourceName + " / " + c, e);
+        }
+    }
 }
