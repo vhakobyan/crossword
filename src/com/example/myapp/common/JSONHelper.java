@@ -24,7 +24,23 @@ public class JSONHelper {
         try {
             JSONObject verticalObj = new JSONObject(String.valueOf(obj.get("vertical")));
             JSONArray verticalWords = verticalObj.getJSONArray("word");
-            return getWordList(verticalWords);
+            List<Word> words = new ArrayList<>();
+
+            Word word;
+            for (int i = 0; i < verticalWords.length(); i++) {
+                JSONObject json = verticalWords.getJSONObject(i);
+                word = new Word();
+                word.setX(Integer.valueOf(String.valueOf(json.get("x"))));
+                word.setY(Integer.valueOf(String.valueOf(json.get("y"))));
+                word.setDescription(String.valueOf(json.get("description")));
+                word.setText(String.valueOf(json.get("text")));
+                word.setTitle(String.valueOf(json.get("title")));
+                word.setHorizontal(false);
+                words.add(word);
+            }
+
+            return words;
+
         } catch (JSONException e) {
             Log.e("JSONHelper", e.getMessage());
         }
@@ -36,7 +52,23 @@ public class JSONHelper {
         try {
             JSONObject horizontalObj = new JSONObject(String.valueOf(obj.get("horizontal")));
             JSONArray horizontalWords = horizontalObj.getJSONArray("word");
-            return getWordList(horizontalWords);
+            List<Word> words = new ArrayList<>();
+
+            Word word;
+            for (int i = 0; i < horizontalWords.length(); i++) {
+                JSONObject json = horizontalWords.getJSONObject(i);
+                word = new Word();
+                word.setX(Integer.valueOf(String.valueOf(json.get("x"))));
+                word.setY(Integer.valueOf(String.valueOf(json.get("y"))));
+                word.setDescription(String.valueOf(json.get("description")));
+                word.setText(String.valueOf(json.get("text")));
+                word.setTitle(String.valueOf(json.get("title")));
+                word.setHorizontal(true);
+                words.add(word);
+            }
+
+            return words;
+
         } catch (JSONException e) {
             Log.e("JSONHelper", e.getMessage());
         }
@@ -44,26 +76,6 @@ public class JSONHelper {
     }
 
 
-
-    private static List<Word> getWordList(JSONArray verticalWords) throws JSONException {
-
-        List<Word> words = new ArrayList<>();
-
-        Word word;
-        for (int i = 0; i < verticalWords.length(); i++) {
-            JSONObject obj = verticalWords.getJSONObject(i);
-            word = new Word();
-            word.setX(Integer.valueOf(String.valueOf(obj.get("x"))));
-            word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
-            word.setDescription(String.valueOf(obj.get("description")));
-            word.setText(String.valueOf(obj.get("text")));
-            word.setTitle(String.valueOf(obj.get("title")));
-            word.setHorizontal(false);
-            words.add(word);
-        }
-
-        return words;
-    }
 
     public static Grid getGrid(JSONObject obj) {
 

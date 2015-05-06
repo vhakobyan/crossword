@@ -1,5 +1,6 @@
 package com.example.myapp.common;
 
+import android.view.View;
 import com.example.myapp.data.Grid;
 import com.example.myapp.data.Word;
 
@@ -12,9 +13,11 @@ import java.util.Map;
  */
 public class ModelHelper {
 
+    private static BGModel bgModel;
     private static GameModel gameModel;
 
     static {
+        bgModel = GameApplication.getInstance().getBGModel();
         gameModel = GameApplication.getInstance().getGameModel();
     }
 
@@ -34,7 +37,7 @@ public class ModelHelper {
         gameModel.setVerticalWords(vws);
     }
 
-    public static List<Word> gtHorizontalWords() {
+    public static List<Word> getHorizontalWords() {
         return gameModel.getHorizontalWords();
     }
 
@@ -48,5 +51,21 @@ public class ModelHelper {
 
     public static Grid getGrid() {
         return gameModel.getGrid();
+    }
+
+    public static void setSelection(List<View> views) {
+        bgModel.setSelection(views);
+    }
+
+    public static List<View> getSelection() {
+        return bgModel.getSelection();
+    }
+
+    public static void setCurrentWord(Word currentWord) {
+        gameModel.setCurrentWord(currentWord);
+    }
+
+    public static Word getCurrentWord() {
+        return getCurrentWord();
     }
 }

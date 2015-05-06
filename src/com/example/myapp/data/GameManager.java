@@ -1,7 +1,10 @@
 package com.example.myapp.data;
 
+import android.view.View;
 import com.example.myapp.data.board.BGManager;
 import com.example.myapp.data.board.DataManager;
+
+import java.util.List;
 
 /**
  * Created by Vahagn Hakobyan
@@ -13,13 +16,23 @@ public class GameManager {
     private DataManager dataManager;
 
     public GameManager() {
+        bgManager = new BGManager();
+        dataManager = new DataManager();
     }
 
-    public BGManager getBgManager() {
-        return bgManager;
+    public void clearBGSelection() {
+        bgManager.clearSelection();
     }
 
-    public DataManager getDataManager() {
-        return dataManager;
+    public void setBGSelection(List<View> views) {
+        bgManager.setSelection(views);
+    }
+
+    public void setCurrentWord(Word currentWord) {
+        dataManager.setCurrentWord(currentWord);
+    }
+
+    public void getCurrentWord() {
+        dataManager.getCurrentWord();
     }
 }

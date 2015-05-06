@@ -18,7 +18,6 @@ import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.Word;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameGridAdapter extends BaseAdapter {
@@ -62,7 +61,7 @@ public class GameGridAdapter extends BaseAdapter {
         this.bgData = new String[this.height][this.width];
         this.correctionArea = new String[this.height][this.width];
 
-        for (Word entry : ModelHelper.gtHorizontalWords()) {
+        for (Word entry : ModelHelper.getHorizontalWords()) {
 
             String tmp = entry.getTmp();
             String text = entry.getText();

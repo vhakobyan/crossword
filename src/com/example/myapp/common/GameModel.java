@@ -17,22 +17,23 @@ public class GameModel {
     private Grid grid;
     private List<Word> verticalWords;
     private List<Word> horizontalWords;
+    private Word currentWord;
 
     public GameModel() {
     }
 
     public Word getHorizontalWord(int x, int y) {
-        for (Word vw : verticalWords) {
-            if(vw.getX() == x && vw.getY() == y)
-                return vw;
+        for (Word hw : horizontalWords) {
+            if(hw.getX() <= x && x <= hw.getX() + hw.getLength() - 1 && hw.getY() == y)
+                return hw;
         }
         return null;
     }
 
     public Word getVerticalWord(int x, int y) {
-        for (Word hw : horizontalWords) {
-            if(hw.getX() == x && hw.getY() == y)
-                return hw;
+        for (Word vw : verticalWords) {
+            if(vw.getX() == x && vw.getY() <= y && y <= vw.getY() + vw.getLength() - 1)
+                return vw;
         }
         return null;
     }
@@ -59,5 +60,13 @@ public class GameModel {
 
     public void setGrid(Grid grid) {
         this.grid = grid;
+    }
+
+    public void setCurrentWord(Word currentWord) {
+        this.currentWord = currentWord;
+    }
+
+    public Word getCurrentWord() {
+        return currentWord;
     }
 }
