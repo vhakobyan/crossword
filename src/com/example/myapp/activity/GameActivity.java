@@ -17,19 +17,24 @@ import com.example.myapp.KeyboardView;
 import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
+import com.example.myapp.common.JSONHelper;
+import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.Grid;
 import com.example.myapp.data.Word;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameActivity extends Activity implements OnTouchListener, KeyboardViewInterface {
 
     public static final float 	KEYBOARD_OVERLAY_OFFSET = 90;
+    private static final String TAG = "GameActivity";
 
     public enum GRID_MODE {NORMAL, CHECK, SOLVE};
     public GRID_MODE currentMode = GRID_MODE.NORMAL;
@@ -40,8 +45,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     private TextView txtDescription;
     private TextView keyboardOverlay;
 
-    private Grid grid;
-    private ArrayList<Word> entries;        // List words
+
     private ArrayList<View> selectedArea = new ArrayList<View>(); // List of selection boxes
 
     private boolean downIsPlayable;    // false if the player pressed a black box
@@ -74,57 +78,14 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
         try {
 
-            String loadJSONFromAsset = loadJSONFromAsset();
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset);
-            JSONObject jsonGrid = jsonObj.getJSONObject("grid");
-
-            Grid grid = new Grid();
-            grid.setName(String.valueOf(jsonGrid.get("name")));
-//            grid.setDescription(String.valueOf(jsonGrid.get("description")));
-            grid.setLevel(Integer.valueOf(String.valueOf(jsonGrid.get("level"))));
-            grid.setWidth(Integer.valueOf(String.valueOf(jsonGrid.get("width"))));
-            grid.setHeight(Integer.valueOf(String.valueOf(jsonGrid.get("height"))));
-            grid.setDate((new SimpleDateFormat("dd/MM/yyyy")).parse(String.valueOf(jsonGrid.get("date"))));
-
-            this.grid = grid;
-
-            ArrayList<Word> words = new ArrayList<>();
-
-            JSONObject horizontalObj = new JSONObject(String.valueOf(jsonGrid.get("horizontal")));
-            JSONObject verticalObj = new JSONObject(String.valueOf(jsonGrid.get("vertical")));
-            JSONArray horizontalWords = horizontalObj.getJSONArray("word");
-            JSONArray verticalWords = verticalObj.getJSONArray("word");
-
-            Word word;
-            for (int i = 0; i < horizontalWords.length(); i++) {
-                JSONObject obj = horizontalWords.getJSONObject(i);
-                word = new Word();
-                word.setX(Integer.valueOf(String.valueOf(obj.get("x"))));
-                word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
-                word.setDescription(String.valueOf(obj.get("description")));
-                word.setText(String.valueOf(obj.get("text")));
-                word.setTitle(String.valueOf(obj.get("title")));
-                word.setHorizontal(true);
-                words.add(word);
-            }
-
-            for (int i = 0; i < verticalWords.length(); i++) {
-                JSONObject obj = verticalWords.getJSONObject(i);
-                word = new Word();
-                word.setX(Integer.valueOf(String.valueOf(obj.get("x"))));
-                word.setY(Integer.valueOf(String.valueOf(obj.get("y"))));
-                word.setDescription(String.valueOf(obj.get("description")));
-                word.setText(String.valueOf(obj.get("text")));
-                word.setTitle(String.valueOf(obj.get("title")));
-                word.setHorizontal(false);
-                words.add(word);
-            }
-
-            this.entries = words;
+            initGameModel();
 
 
-            this.width = this.grid.getWidth();
-            this.height = this.grid.getHeight();
+
+
+
+            this.width = ModelHelper.getGrid().getWidth();
+            this.height = ModelHelper.getGrid().getHeight();
 
             Display display = getWindowManager().getDefaultDisplay();
             int height = display.getHeight();
@@ -135,12 +96,12 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
             this.gridView = (GridView) findViewById(R.id.grid);
             this.gridView.setOnTouchListener(this);
-            this.gridView.setNumColumns(this.width);
+            this.gridView.setNumColumns(ModelHelper.getGrid().getWidth());
             android.view.ViewGroup.LayoutParams gridParams = this.gridView.getLayoutParams();
             gridParams.height = height - keyboardHeight - this.txtDescription.getLayoutParams().height;
             this.gridView.setLayoutParams(gridParams);
             this.gridView.setVerticalScrollBarEnabled(false);
-            this.gridAdapter = new GameGridAdapter(this, this.entries, this.width, this.height);
+            this.gridAdapter = new GameGridAdapter(this);
             this.gridView.setAdapter(this.gridAdapter);
 
             this.keyboardView = (KeyboardView)findViewById(R.id.keyboard);
@@ -155,6 +116,21 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             e.printStackTrace();
         }
     }
+
+    private void initGameModel() {
+        try {
+            String loadJSONFromAsset = loadJSONFromAsset();
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset);
+            JSONObject obj = jsonObj.getJSONObject("grid");
+            ModelHelper.setGrid(JSONHelper.getGrid(obj));
+            ModelHelper.setVerticalWords(JSONHelper.grtVerticalWords(obj));
+            ModelHelper.setHorizontalWords(JSONHelper.grtHorizontalWords(obj));
+        } catch (JSONException e) {
+            Log.e("initGameModel", e.getMessage());
+        }
+    }
+
+
 
     private void readPreferences() {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -303,22 +279,9 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     }
 
     private Word getWord(int x, int y, boolean horizontal) {
-        Word horizontalWord = null;
-        Word verticalWord = null;
-        for (Word entry : this.entries) {
-            if (x >= entry.getX() && x <= entry.getXMax())
-                if (y >= entry.getY() && y <= entry.getYMax()) {
-                    if (entry.getHorizontal())
-                        horizontalWord = entry;
-                    else
-                        verticalWord = entry;
-                }
-        }
-
-        if (horizontal)
-            return (horizontalWord != null) ? horizontalWord : verticalWord;
-        else
-            return (verticalWord != null) ? verticalWord : horizontalWord;
+        Word hw = ModelHelper.getHW(x, y);
+        Word vw = ModelHelper.getVW(x, y);
+        return horizontal ? (hw == null ? vw : hw) : (vw == null ?  hw : vw);
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import com.example.myapp.activity.GameActivity;
 import com.example.myapp.R;
+import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.Word;
 
 import java.lang.reflect.Field;
@@ -41,18 +42,16 @@ public class GameGridAdapter extends BaseAdapter {
     private int width;
     private int height;
 
-    ArrayList<Word> entries;
+//    ArrayList<Word> entries;
 
 
-    public GameGridAdapter(Activity act, ArrayList<Word> entries, int width, int height) {
-
-        this.entries = entries;
+    public GameGridAdapter(Activity act) {
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(act);
         this.isLower = preferences.getBoolean("grid_is_lower", false);
         this.context = (Context) act;
-        this.width = width;
-        this.height = height;
+        this.width = ModelHelper.getGrid().getWidth();
+        this.height = ModelHelper.getGrid().getHeight();
 
         // Calcul area height
         Display display = act.getWindowManager().getDefaultDisplay();
@@ -63,7 +62,7 @@ public class GameGridAdapter extends BaseAdapter {
         this.bgData = new String[this.height][this.width];
         this.correctionArea = new String[this.height][this.width];
 
-        for (Word entry : entries) {
+        for (Word entry : ModelHelper.gtHorizontalWords()) {
 
             String tmp = entry.getTmp();
             String text = entry.getText();
@@ -74,32 +73,41 @@ public class GameGridAdapter extends BaseAdapter {
 
             for (int i = 0; i < entry.getLength(); i++) {
 
-                if (horizontal) {
-                    if (y >= 0 && y < this.height && x + i >= 0 && x + i < this.width) {
-                        //this.area[y][x + i] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
-                        if(tmp != null){
-                            this.area[y][x + i] = String.valueOf(tmp.charAt(i));
-                        } else {
-                            this.area[y][x + i] = " ";
-                            if (i == 0) this.bgData[y][x + i] = title;
-                            else if(this.bgData[y][x + i] == null) this.bgData[y][x + i] = "";
-                        }
-                        this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
+                if (y >= 0 && y < this.height && x + i >= 0 && x + i < this.width) {
+                    //this.area[y][x + i] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
+                    if(tmp != null){
+                        this.area[y][x + i] = String.valueOf(tmp.charAt(i));
+                    } else {
+                        this.area[y][x + i] = " ";
+                        if (i == 0) this.bgData[y][x + i] = title;
+                        else if(this.bgData[y][x + i] == null) this.bgData[y][x + i] = "";
                     }
+                    this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
+                }
+            }
+        }
 
-                } else {
-                    if (y + i >= 0 && y + i < this.height && x >= 0 && x < this.width) {
-                        //this.area[y + i][x] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
-                        if(tmp != null){
-                            this.area[y + i][x] = String.valueOf(tmp.charAt(i));
-                        } else {
-                            this.area[y + i][x] = " ";
-                            if (i == 0) this.bgData[y + i][x] = title;
-                            else if(this.bgData[y + i][x] == null) this.bgData[y + i][x] = "";
-                        }
-                        this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
+        for (Word entry : ModelHelper.getVerticalWords()) {
+
+            String tmp = entry.getTmp();
+            String text = entry.getText();
+            String title = entry.getTitle();
+            boolean horizontal = entry.getHorizontal();
+            int x = entry.getX();
+            int y = entry.getY();
+
+            for (int i = 0; i < entry.getLength(); i++) {
+
+                if (y + i >= 0 && y + i < this.height && x >= 0 && x < this.width) {
+                    //this.area[y + i][x] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
+                    if(tmp != null){
+                        this.area[y + i][x] = String.valueOf(tmp.charAt(i));
+                    } else {
+                        this.area[y + i][x] = " ";
+                        if (i == 0) this.bgData[y + i][x] = title;
+                        else if(this.bgData[y + i][x] == null) this.bgData[y + i][x] = "";
                     }
-
+                    this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
                 }
             }
         }
