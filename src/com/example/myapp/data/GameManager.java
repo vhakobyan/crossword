@@ -20,8 +20,8 @@ public class GameManager {
         dataManager = new DataManager();
     }
 
-    public void clearBGSelection() {
-        bgManager.clearSelection();
+    public void clearBGSelection(int position, String[][] pbgData) {
+        bgManager.clearSelection(position, pbgData);
     }
 
     public void setBGSelection(List<View> views) {

@@ -176,7 +176,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 this.downX = this.downPos % width;
                 this.downY = this.downPos / width;
                 Log.i("TAG", "ACTION_DOWN, x:" + this.downX + ", y:" + this.downY + ", position: " + this.downPos);
-                manager.clearBGSelection();
+                manager.clearBGSelection(position, this.gridAdapter.getbgData());
                 break;
             case MotionEvent.ACTION_UP: {
 
