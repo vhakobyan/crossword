@@ -19,6 +19,7 @@ import com.example.myapp.data.Word;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.example.myapp.data.board.BGCell;
 import com.example.myapp.data.board.BGManager;
@@ -30,7 +31,7 @@ public class GameGridAdapter extends BaseAdapter {
 
     public static final int AREA_BLOCK = -1;
     public static final int AREA_WRITABLE = 0;
-    private HashMap<Integer, TextView> views = new HashMap<Integer, TextView>();
+    private Map<Integer, TextView> views;
     private Context context;
     // user letters
     private String[][] area;            // Tableau représentant les lettres du joueur
@@ -44,11 +45,11 @@ public class GameGridAdapter extends BaseAdapter {
     private int displayHeight;
     private int width;
     private int height;
-    private BGManager bgManager;
-//    ArrayList<Word> entries;
 
 
     public GameGridAdapter(Activity act) {
+
+        views = new HashMap<Integer, TextView>();
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(act);
         this.isLower = preferences.getBoolean("grid_is_lower", false);
@@ -63,9 +64,6 @@ public class GameGridAdapter extends BaseAdapter {
         // Fill area and areaCorrection
         this.area = new String[this.height][this.width];
         this.bgData = new String[this.height][this.width];
-        bgManager = new BGManager(this.height, this.width);
-        //bgManager.setBGDataByXY(this.height, this.width);
-        BGCell[][] bgDataArr = new BGCell[this.width][this.height];
         this.correctionArea = new String[this.height][this.width];
 
         for (Word entry : ModelHelper.getHorizontalWords()) {
@@ -89,13 +87,9 @@ public class GameGridAdapter extends BaseAdapter {
                         this.area[y][x + i] = " ";
                         if (i == 0) {
                             this.bgData[y][x + i] = title;
-                            BGCell cell = new BGCell(BGType.NUMBER);
-                            bgDataArr[y][x + i] = cell;
                         }
                         else if(this.bgData[y][x + i] == null) {
                             this.bgData[y][x + i] = "";
-                            BGCell cell = new BGCell(BGType.AREA);
-                            bgDataArr[y][x + i] = cell;
                         }
                     }
                     this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
@@ -123,13 +117,9 @@ public class GameGridAdapter extends BaseAdapter {
                         this.area[y + i][x] = " ";
                         if (i == 0) {
                             this.bgData[y + i][x] = title;
-                            BGCell cell = new BGCell(BGType.NUMBER);
-                            bgDataArr[y][x + i] = cell;
                         }
                         else if(this.bgData[y + i][x] == null) {
                             this.bgData[y + i][x] = "";
-                            BGCell cell = new BGCell(BGType.AREA);
-                            bgDataArr[y][x + i] = cell;
                         }
                     }
                     this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
@@ -137,8 +127,6 @@ public class GameGridAdapter extends BaseAdapter {
             }
         }
 
-        bgManager.setBGDataByXY(this.bgData);
-        bgManager.setBgDataArr(bgDataArr);
     }
 
     @Override

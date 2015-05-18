@@ -1,5 +1,6 @@
 package com.example.myapp.data.board;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,21 +10,18 @@ import com.example.myapp.data.Word;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.myapp.adapter.*;
+
 /**
  * Created by Vahagn Hakobyan
  * on 5/6/15 - 11:06 AM
  */
 public class BGManager {
 
-    private String[][] bgData;
     private BGCell[][] bgDataArr;
 
     public BGManager() {
-    }
-
-    public BGManager(int height, int width) {
-        bgData = new String[height][width];
     }
 
     public void clearSelection(int position, String[][] pbgData) {
@@ -37,19 +35,13 @@ public class BGManager {
         for (View v : selection) {
             //String stringbgData = pbgData[v.getHeight()][v.getWidth()];
             //view.setBackgroundResource(R.drawable.area_empty);
-            if(cell != null) {
+            if (cell.isArea()) {
 
-                if (cell.isArea()) {
-
-                    v.setBackgroundResource(R.drawable.area_empty);
-                    v.setTag(GameGridAdapter.AREA_WRITABLE);
-                } else if (cell.isNumber()) {
-                    v.setBackgroundResource(GameGridAdapter.getId("cell_" + stringbgData, R.drawable.class));
-                    v.setTag(GameGridAdapter.AREA_WRITABLE);
-                } else {
-                    v.setBackgroundResource(R.drawable.area_block);
-                    v.setTag(GameGridAdapter.AREA_BLOCK);
-                }
+                v.setBackgroundResource(R.drawable.area_empty);
+                v.setTag(GameGridAdapter.AREA_WRITABLE);
+            } else if (cell.isNumber()) {
+                v.setBackgroundResource(GameGridAdapter.getId("cell_" + stringbgData, R.drawable.class));
+                v.setTag(GameGridAdapter.AREA_WRITABLE);
             } else {
                 v.setBackgroundResource(R.drawable.area_block);
                 v.setTag(GameGridAdapter.AREA_BLOCK);
@@ -81,11 +73,42 @@ public class BGManager {
 
     }
 
-    public void setBgDataArr(BGCell[][] bgDataArr) {
-        this.bgDataArr = bgDataArr;
-    }
+    public void initBGManager(int width, int height, List<Word> hw, List<Word> vw) {
 
-    public void setBGDataByXY(String[][] bgData){
-        this.bgData = bgData;
+        bgDataArr = new BGCell[height][width];
+
+        for (int c = 0; c < width; c++) {
+            for (int r = 0; r < height; r++) {
+                bgDataArr[r][c] = new BGCell(BGType.EMPTY);
+            }
+        }
+
+        for (Word entry : hw) {
+
+            int x = entry.getX();
+            int y = entry.getY();
+
+//            Log.i("WORD", "hw " + entry.getText());
+            for (int i = 0; i < entry.getLength(); i++) {
+                if (y >= 0 && y < height && x + i >= 0 && x + i < width) {
+                    bgDataArr[y][x + i] = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
+                }
+            }
+        }
+        for (Word entry : vw) {
+
+            int x = entry.getX();
+            int y = entry.getY();
+
+//            Log.i("WORD", "vw " + entry.getText());
+            for (int i = 0; i < entry.getLength(); i++) {
+                if (y + i >= 0 && y + i < height && x >= 0 && x < width) {
+                    if(!bgDataArr[y + i][x].isNumber())
+                        bgDataArr[y + i][x] = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
+                }
+            }
+        }
+
+        System.out.println("OK");
     }
 }

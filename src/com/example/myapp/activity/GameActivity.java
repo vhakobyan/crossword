@@ -70,9 +70,9 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         try {
 
             readPreferences();
-            initGameModel();
 
-            manager = new GameManager();
+            manager = new GameManager(getAssets());
+            manager.initGameModel();
 
             this.gridView = (GridView) findViewById(R.id.grid);
             this.keyboardView = (KeyboardView)findViewById(R.id.keyboard);
@@ -110,53 +110,12 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         super.onResume();
     }
 
-    private void initGameModel() {
-        try {
-            String loadJSONFromAsset = loadJSONFromAsset();
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset);
-            JSONObject obj = jsonObj.getJSONObject("grid");
-            ModelHelper.setGrid(JSONHelper.getGrid(obj));
-            ModelHelper.setVerticalWords(JSONHelper.grtVerticalWords(obj));
-            ModelHelper.setHorizontalWords(JSONHelper.grtHorizontalWords(obj));
-        } catch (JSONException e) {
-            Log.e("initGameModel", e.getMessage());
-        }
-    }
-
     private void readPreferences() {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 //        this.solidSelection = preferences.getBoolean("solid_selection", false);
 //        this.gridIsLower = preferences.getBoolean("grid_is_lower", false);
         if (currentMode != GRID_MODE.SOLVE)
             currentMode = preferences.getBoolean("grid_check", false) ? GRID_MODE.CHECK : GRID_MODE.NORMAL;
-
-    }
-
-    public String loadJSONFromAsset() {
-
-        String json = null;
-        InputStream is = null;
-
-        try {
-
-            is = getAssets().open("grid_01.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-
-
-        } catch (IOException ex) {
-            Log.d("GA", ex.getMessage());
-            return "";
-        } finally {
-            try {
-                if (is != null) is.close();
-            } catch (IOException ignored) {
-            }
-        }
-        return json;
 
     }
 
