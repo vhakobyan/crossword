@@ -24,7 +24,7 @@ public class JSONHelper {
         try {
             JSONObject verticalObj = new JSONObject(String.valueOf(obj.get("vertical")));
             JSONArray verticalWords = verticalObj.getJSONArray("word");
-            List<Word> words = new ArrayList<>();
+            List<Word> words = new ArrayList<Word>();
 
             Word word;
             for (int i = 0; i < verticalWords.length(); i++) {
@@ -44,7 +44,7 @@ public class JSONHelper {
         } catch (JSONException e) {
             Log.e("JSONHelper", e.getMessage());
         }
-        return new ArrayList<>();
+        return new ArrayList<Word>();
     }
 
     public static List<Word> grtHorizontalWords(JSONObject obj) {
@@ -52,7 +52,7 @@ public class JSONHelper {
         try {
             JSONObject horizontalObj = new JSONObject(String.valueOf(obj.get("horizontal")));
             JSONArray horizontalWords = horizontalObj.getJSONArray("word");
-            List<Word> words = new ArrayList<>();
+            List<Word> words = new ArrayList<Word>();
 
             Word word;
             for (int i = 0; i < horizontalWords.length(); i++) {
@@ -72,7 +72,7 @@ public class JSONHelper {
         } catch (JSONException e) {
             Log.e("JSONHelper", e.getMessage());
         }
-        return new ArrayList<>();
+        return new ArrayList<Word>();
     }
 
 

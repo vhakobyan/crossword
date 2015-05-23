@@ -7,6 +7,7 @@ package com.example.myapp.data.board;
 public class BGCell {
 
     private BGType type;
+    private String val;
 
     public BGCell(BGType type) {
         this.type = type;
@@ -23,4 +24,12 @@ public class BGCell {
     public boolean isEmpty() {
         return this.type == BGType.EMPTY;
     }
+
+	public String getVal() {
+		return val;
+	}
+
+	public void setVal(String val) {
+		this.val = val;
+	}
 }

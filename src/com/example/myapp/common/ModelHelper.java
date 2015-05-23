@@ -1,8 +1,10 @@
 package com.example.myapp.common;
 
 import android.view.View;
+
 import com.example.myapp.data.Grid;
 import com.example.myapp.data.Word;
+import com.example.myapp.data.board.GridPos;
 
 import java.util.List;
 import java.util.Map;
@@ -66,6 +68,18 @@ public class ModelHelper {
     }
 
     public static Word getCurrentWord() {
-        return getCurrentWord();
+        return gameModel.getCurrentWord();
+    }
+    
+    public static GridPos getGridPosition(int index) {
+    	Grid grid = getGrid();
+    	int row = index / grid.getWidth();
+    	int col = index % grid.getHeight();
+    	return new GridPos(row, col);
+    }
+    
+    public static int getGridIndex(int row, int col) {
+    	Grid grid = getGrid();
+    	return col * grid.getWidth() + row;
     }
 }

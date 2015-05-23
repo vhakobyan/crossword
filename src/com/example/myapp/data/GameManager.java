@@ -3,10 +3,13 @@ package com.example.myapp.data;
 import android.content.res.AssetManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
+
 import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.board.BGManager;
 import com.example.myapp.data.board.DataManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,13 +27,14 @@ public class GameManager {
     private BGManager bgManager;
     private DataManager dataManager;
 
-    public GameManager(AssetManager assets) {
-        bgManager = new BGManager();
+    public GameManager(AssetManager assets, GridView gv) {
+        bgManager = new BGManager(gv);
         dataManager = new DataManager(assets);
     }
 
     public void clearBGSelection(int position, String[][] pbgData) {
         bgManager.clearSelection(position, pbgData);
+        dataManager.clearSelection();
     }
 
     public void setBGSelection(List<View> views) {
@@ -55,9 +59,9 @@ public class GameManager {
     }
 
     private void initBGManager() {
-        int width = dataManager.getGridWidth();
+    	int width = dataManager.getGridWidth();
         int height = dataManager.getGridHeight();
-        List<Word> horizontalWords = dataManager.getHorizontalWords();
+    	List<Word> horizontalWords = dataManager.getHorizontalWords();
         List<Word> verticalWords = dataManager.getVerticalWords();
         bgManager.initBGManager(width, height, horizontalWords, verticalWords);
     }

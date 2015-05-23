@@ -68,11 +68,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
 
         try {
-
-            readPreferences();
-
-            manager = new GameManager(getAssets());
-            manager.initGameModel();
+        	
 
             this.gridView = (GridView) findViewById(R.id.grid);
             this.keyboardView = (KeyboardView)findViewById(R.id.keyboard);
@@ -80,6 +76,11 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             this.keyboardOverlay = (TextView)findViewById(R.id.keyboard_overlay);
 
             this.txtDescription.setText(R.string.lblPleaseTouch);
+
+            readPreferences();
+
+            manager = new GameManager(getAssets(), this.gridView);
+            manager.initGameModel();
 
             Display display = getWindowManager().getDefaultDisplay();
             int keyboardHeight = (int) (display.getHeight() / 4.4);
@@ -166,7 +167,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                 this.txtDescription.setText(this.currentWord.getDescription());
 
                 // Set background color
-                List<View> views = new ArrayList<>();
+                List<View> views = new ArrayList<View>();
                 boolean horizontal = this.currentWord.getHorizontal();
                 for (int l = 0; l < this.currentWord.getLength(); l++) {
                     int index = this.currentWord.getY() * width + this.currentWord.getX() + (l * (horizontal ? 1 : width));

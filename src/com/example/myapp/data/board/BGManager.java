@@ -1,17 +1,16 @@
 package com.example.myapp.data.board;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.myapp.R;
-import com.example.myapp.common.ModelHelper;
-import com.example.myapp.data.Word;
-
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import com.example.myapp.adapter.*;
+import android.util.Log;
+import android.view.View;
+import android.widget.GridView;
+
+import com.example.myapp.R;
+import com.example.myapp.adapter.GameGridAdapter;
+import com.example.myapp.common.ModelHelper;
+import com.example.myapp.data.Word;
 
 /**
  * Created by Vahagn Hakobyan
@@ -19,50 +18,33 @@ import com.example.myapp.adapter.*;
  */
 public class BGManager {
 
+	private GridView gridView;
     private BGCell[][] bgDataArr;
+    private int rows;
+    private int cols;
 
-    public BGManager() {
+    public BGManager(GridView gv) {
+    	this.gridView = gv;
     }
 
     public void clearSelection(int position, String[][] pbgData) {
-        List<View> selection = ModelHelper.getSelection();
-        //TextView v = this.views.get(position);
-        int y = (int) (position / ModelHelper.getGrid().getWidth());
-        int x = (int) (position % ModelHelper.getGrid().getWidth());
-
-        String stringbgData = pbgData[y][x];
-        BGCell cell = bgDataArr[y][x];
-        for (View v : selection) {
-            //String stringbgData = pbgData[v.getHeight()][v.getWidth()];
-            //view.setBackgroundResource(R.drawable.area_empty);
-            if (cell.isArea()) {
-
-                v.setBackgroundResource(R.drawable.area_empty);
-                v.setTag(GameGridAdapter.AREA_WRITABLE);
-            } else if (cell.isNumber()) {
-                v.setBackgroundResource(GameGridAdapter.getId("cell_" + stringbgData, R.drawable.class));
-                v.setTag(GameGridAdapter.AREA_WRITABLE);
-            } else {
-                v.setBackgroundResource(R.drawable.area_block);
-                v.setTag(GameGridAdapter.AREA_BLOCK);
-            }
-        }
-        selection.clear();
-        ModelHelper.setSelection(selection);
-
-
-        /*
-        if (bgData != null && "".equals(bgData)) {
-                v.setBackgroundResource(R.drawable.area_empty);
-                v.setTag(AREA_WRITABLE);
-            } else if (bgData != null && bgData.trim().length() > 0) {
-                v.setBackgroundResource(getId("cell_" + bgData, R.drawable.class));
-                v.setTag(AREA_WRITABLE);
-            } else {
-                v.setBackgroundResource(R.drawable.area_block);
-                v.setTag(AREA_BLOCK);
-            }
-         */
+    	
+    	Word currentWord = ModelHelper.getCurrentWord();
+    	if(currentWord != null) {
+	    	List<Integer> gridIndexes = currentWord.getGridIndexes();
+	    	for (int i = 0; i < gridIndexes.size(); i++) {
+	    		int index = gridIndexes.get(i);
+	    		BGCell cell = getBGCell(index);
+	    		View view = this.gridView.getChildAt(index);
+	    		if (cell.isArea()) {
+	    			view.setBackgroundResource(R.drawable.area_empty);
+	            } else if (cell.isNumber()) {
+	            	view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
+	            } else {
+	            	view.setBackgroundResource(R.drawable.area_block);
+	            }
+			}
+    	}
     }
 
     public void setSelection(List<View> views) {
@@ -70,11 +52,14 @@ public class BGManager {
     }
 
     public void setCurrentWord(Word currentWord) {
-
+    	ModelHelper.setCurrentWord(currentWord);
     }
 
     public void initBGManager(int width, int height, List<Word> hw, List<Word> vw) {
-
+    	
+    	this.rows = height;
+    	this.cols = width;
+    	
         bgDataArr = new BGCell[height][width];
 
         for (int c = 0; c < width; c++) {
@@ -91,7 +76,9 @@ public class BGManager {
 //            Log.i("WORD", "hw " + entry.getText());
             for (int i = 0; i < entry.getLength(); i++) {
                 if (y >= 0 && y < height && x + i >= 0 && x + i < width) {
-                    bgDataArr[y][x + i] = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
+                    BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
+                    if(i == 0) bgCell.setVal(entry.getTitle());
+					bgDataArr[y][x + i] = bgCell;
                 }
             }
         }
@@ -103,12 +90,20 @@ public class BGManager {
 //            Log.i("WORD", "vw " + entry.getText());
             for (int i = 0; i < entry.getLength(); i++) {
                 if (y + i >= 0 && y + i < height && x >= 0 && x < width) {
-                    if(!bgDataArr[y + i][x].isNumber())
-                        bgDataArr[y + i][x] = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
+                    if(!bgDataArr[y + i][x].isNumber()) {
+						BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
+						if(i == 0) bgCell.setVal(entry.getTitle());
+						bgDataArr[y + i][x] = bgCell;
+					}
                 }
             }
         }
+        
+        Log.i("initBGManager", "OK");
 
-        System.out.println("OK");
     }
+    
+    public BGCell getBGCell(int index) {
+    	return bgDataArr[index / cols][index % cols];
+    } 
 }

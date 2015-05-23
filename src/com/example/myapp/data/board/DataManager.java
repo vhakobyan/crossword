@@ -2,15 +2,19 @@ package com.example.myapp.data.board;
 
 import android.content.res.AssetManager;
 import android.util.Log;
+import android.view.View;
+
 import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.Grid;
 import com.example.myapp.data.Word;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +60,10 @@ public class DataManager {
     public int getGridHeight() {
         return ModelHelper.getGrid().getHeight();
     }
+    
+    public Grid getGrid() {
+        return ModelHelper.getGrid();
+    }
 
     public void initDataManager() {
 
@@ -98,4 +106,13 @@ public class DataManager {
         return json;
 
     }
+
+	public void clearSelection() {
+		List<View> selection = ModelHelper.getSelection();
+		if(selection != null) {
+			selection.clear();
+	        ModelHelper.setSelection(selection);
+		}
+		
+	}
 }
