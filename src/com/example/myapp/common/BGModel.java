@@ -13,10 +13,8 @@ import java.util.List;
 public class BGModel {
 
     private BGCell[][] cells;
-    private List<View> selection;
 
     public BGModel() {
-        selection = new ArrayList<View>();
     }
 
     public BGCell[][] getCells() {
@@ -25,13 +23,5 @@ public class BGModel {
 
     public void setCells(BGCell[][] cells) {
         this.cells = cells;
-    }
-
-    public List<View> getSelection() {
-        return selection;
-    }
-
-    public void setSelection(List<View> selection) {
-        this.selection = selection;
     }
 }

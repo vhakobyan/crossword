@@ -48,11 +48,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
 
     private int downPos;        // Position or player supported
-    private int downX;            //Line or player supported
-    private int downY;            // Column or player supported
     private int currentPos;        // Current cursor position
-    private int currentX;        // Current column of the cursor
-    private int currentY;        // Current cursor line
     private Word currentWord;    //Currently selected word
     private boolean horizontal;        // Direction of selection
 
@@ -128,56 +124,39 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         int position = this.gridView.pointToPosition(x1, y1);
 
         int width = ModelHelper.getGrid().getWidth();
+        int downX = this.downPos % width;
+        int downY = this.downPos / width;
 
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
+            	Log.i("TAG", "ACTION_DOWN, x:" + downX + ", y:" + downY + ", position: " + position);
                 this.downPos = position;
-                this.downX = this.downPos % width;
-                this.downY = this.downPos / width;
-                Log.i("TAG", "ACTION_DOWN, x:" + this.downX + ", y:" + this.downY + ", position: " + this.downPos);
-                manager.clearBGSelection(position, this.gridAdapter.getbgData());
                 break;
             case MotionEvent.ACTION_UP: {
-
+            	Log.i("TAG", "ACTION_UP, x:" + downX + ", y:" + downY + ", position: " + position);
                 // rejecting click on empty (black) area
                 View child = this.gridView.getChildAt(position);
                 if (child == null || child.getTag().equals(GameGridAdapter.AREA_BLOCK)) return true;
                 // using horizontal or vertical words depend on click count
                 if (this.downPos == position && this.currentPos == position) this.horizontal = !this.horizontal;
+                
                 //retrieving current word
-                this.currentWord = getWord(this.downX, this.downY, this.horizontal);
+                this.currentWord = getWord(downX, downY, this.horizontal);
                 if(this.currentWord == null) return true;
-                manager.setCurrentWord(currentWord);
-                // getWord van return any direction
+ 
                 this.horizontal = this.currentWord.getHorizontal();
 
-                // Si clique sur la case, place le curseur sur le mot
-                // Sinon place le curseur au debut du mot
                 if (this.downPos == position) {
-                    this.currentX = this.downX;
-                    this.currentY = this.downY;
+                	
                     this.currentPos = position;
-                } else {
-                    this.currentX = this.currentWord.getX();
-                    this.currentY = this.currentWord.getY();
-                    this.currentPos = this.currentY * width + this.currentX;
-                }
+                    this.txtDescription.setText(this.currentWord.getDescription());
 
-                this.txtDescription.setText(this.currentWord.getDescription());
-
-                // Set background color
-                List<View> views = new ArrayList<View>();
-                boolean horizontal = this.currentWord.getHorizontal();
-                for (int l = 0; l < this.currentWord.getLength(); l++) {
-                    int index = this.currentWord.getY() * width + this.currentWord.getX() + (l * (horizontal ? 1 : width));
-                    View currentChild = this.gridView.getChildAt(index);
-                    if (currentChild != null) {
-                        currentChild.setBackgroundResource(index == this.currentPos ? R.drawable.area_current : R.drawable.area_selected);
-                        views.add(currentChild);
-                    }
+                    manager.clearBGSelection();
+                    manager.setCurrentWord(this.currentWord);
+                    manager.setCurrentPosition(this.currentPos);
+                    manager.markBGSelection();
                 }
-                manager.setBGSelection(views);
 
                 break;
             }
@@ -197,9 +176,10 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     @Override
     public void onKeyDown(String value, int[] location, int width) {
 
+        int currentX = this.downPos % width;
+        int currentY = this.downPos / width;
         System.out.println("onKeyDown: " + value + ", insert in: " + currentX + "x" + currentY);
 
-        // Deplace l'overlay du clavier
         if (value.equals(" ") == false) {
             int offsetX = (this.keyboardOverlay.getWidth() - width) / 2;
             int offsetY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, KEYBOARD_OVERLAY_OFFSET, getResources().getDisplayMetrics());
@@ -220,9 +200,10 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         int width = ModelHelper.getGrid().getWidth();
         int height = ModelHelper.getGrid().getHeight();
 
+        int currentX = this.downPos % width;
+        int currentY = this.downPos / width;
         System.out.println("onKeyUp: " + value + ", insert in: " + currentX + "x" + currentY);
 
-        // Efface l'overlay du clavier
         if (value.equals(" ") == false) {
             this.keyboardOverlay.setAnimation(AnimationUtils.loadAnimation(this, R.anim.keyboard_overlay_fade_out));
             this.keyboardOverlay.setVisibility(View.INVISIBLE);
@@ -233,18 +214,15 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             return;
 
         // Case actuelle
-        int x = this.currentX;
-        int y = this.currentY;
+        int x = currentX;
+        int y = currentY;
 
-        // Si la case est noire => retour
         if (this.gridAdapter.isBlock(x, y))
             return;
 
-        // Ecrit la lettre sur le "curseur"
         this.gridAdapter.setValue(x, y, value);
         this.gridAdapter.notifyDataSetChanged();
 
-        // Deplace sur le "curseur" sur la case precendante (effacer), ou suivante (lettres)
         if (value.equals(" ")) {
             x = (this.horizontal ? x - 1 : x);
             y = (this.horizontal ? y: y - 1);
@@ -258,9 +236,9 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         // Si la case suivante est disponible, met la case en jaune, remet l'ancienne en bleu, et set la nouvelle position
         if (x >= 0 && x < width && y >= 0 && y < height && this.gridAdapter.isBlock(x, y) == false) {
             this.gridView.getChildAt(y * width + x).setBackgroundResource(R.drawable.area_current);
-            this.gridView.getChildAt(this.currentY * width + this.currentX).setBackgroundResource(R.drawable.area_selected);
-            this.currentX = x;
-            this.currentY = y;
+            this.gridView.getChildAt(currentY * width + currentX).setBackgroundResource(R.drawable.area_selected);
+            currentX = x;
+            currentY = y;
         }
 
     }

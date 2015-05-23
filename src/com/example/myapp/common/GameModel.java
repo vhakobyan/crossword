@@ -18,6 +18,7 @@ public class GameModel {
     private List<Word> verticalWords;
     private List<Word> horizontalWords;
     private Word currentWord;
+    private int currentPos;
 
     public GameModel() {
     }
@@ -69,4 +70,13 @@ public class GameModel {
     public Word getCurrentWord() {
         return currentWord;
     }
+
+	public int getCurrentPos() {
+		return currentPos;
+	}
+
+	public void setCurrentPos(int currentPos) {
+		this.currentPos = currentPos;
+	}
+	
 }

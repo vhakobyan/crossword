@@ -55,14 +55,6 @@ public class ModelHelper {
         return gameModel.getGrid();
     }
 
-    public static void setSelection(List<View> views) {
-        bgModel.setSelection(views);
-    }
-
-    public static List<View> getSelection() {
-        return bgModel.getSelection();
-    }
-
     public static void setCurrentWord(Word currentWord) {
         gameModel.setCurrentWord(currentWord);
     }
@@ -70,6 +62,16 @@ public class ModelHelper {
     public static Word getCurrentWord() {
         return gameModel.getCurrentWord();
     }
+    
+    public static void setCurrentPosition(int currentPos) {
+		gameModel.setCurrentPos(currentPos);
+		
+	}
+    
+    public static int getCurrentPosition() {
+		return gameModel.getCurrentPos();
+		
+	}
     
     public static GridPos getGridPosition(int index) {
     	Grid grid = getGrid();
@@ -82,4 +84,6 @@ public class ModelHelper {
     	Grid grid = getGrid();
     	return col * grid.getWidth() + row;
     }
+
+	
 }

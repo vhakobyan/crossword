@@ -32,13 +32,8 @@ public class GameManager {
         dataManager = new DataManager(assets);
     }
 
-    public void clearBGSelection(int position, String[][] pbgData) {
-        bgManager.clearSelection(position, pbgData);
-        dataManager.clearSelection();
-    }
-
-    public void setBGSelection(List<View> views) {
-        bgManager.setSelection(views);
+    public void clearBGSelection() {
+        bgManager.clearSelection();
     }
 
     public void setCurrentWord(Word currentWord) {
@@ -65,4 +60,12 @@ public class GameManager {
         List<Word> verticalWords = dataManager.getVerticalWords();
         bgManager.initBGManager(width, height, horizontalWords, verticalWords);
     }
+
+	public void markBGSelection() {
+		bgManager.markBGSelection();
+	}
+
+	public void setCurrentPosition(int currentPos) {
+		dataManager.setCurrentPosition(currentPos);
+	}
 }

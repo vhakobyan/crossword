@@ -61,6 +61,14 @@ public class DataManager {
         return ModelHelper.getGrid().getHeight();
     }
     
+    public void setCurrentPosition(int currentPos) {
+		ModelHelper.setCurrentPosition(currentPos);
+	}
+    
+    public int getCurrentPosition() {
+		return ModelHelper.getCurrentPosition();
+	}
+    
     public Grid getGrid() {
         return ModelHelper.getGrid();
     }
@@ -106,13 +114,4 @@ public class DataManager {
         return json;
 
     }
-
-	public void clearSelection() {
-		List<View> selection = ModelHelper.getSelection();
-		if(selection != null) {
-			selection.clear();
-	        ModelHelper.setSelection(selection);
-		}
-		
-	}
 }

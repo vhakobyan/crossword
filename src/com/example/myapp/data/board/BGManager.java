@@ -13,97 +13,148 @@ import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.Word;
 
 /**
- * Created by Vahagn Hakobyan
- * on 5/6/15 - 11:06 AM
+ * Created by Vahagn Hakobyan on 5/6/15 - 11:06 AM
  */
 public class BGManager {
 
 	private GridView gridView;
-    private BGCell[][] bgDataArr;
-    private int rows;
-    private int cols;
+	private BGCell[][] bgDataArr;
+	private int rows;
+	private int cols;
 
-    public BGManager(GridView gv) {
-    	this.gridView = gv;
-    }
+	public BGManager(GridView gv) {
+		this.gridView = gv;
+	}
 
-    public void clearSelection(int position, String[][] pbgData) {
-    	
-    	Word currentWord = ModelHelper.getCurrentWord();
-    	if(currentWord != null) {
-	    	List<Integer> gridIndexes = currentWord.getGridIndexes();
-	    	for (int i = 0; i < gridIndexes.size(); i++) {
-	    		int index = gridIndexes.get(i);
-	    		BGCell cell = getBGCell(index);
-	    		View view = this.gridView.getChildAt(index);
-	    		if (cell.isArea()) {
-	    			view.setBackgroundResource(R.drawable.area_empty);
-	            } else if (cell.isNumber()) {
-	            	view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
-	            } else {
-	            	view.setBackgroundResource(R.drawable.area_block);
-	            }
+	public void markBGSelection() {
+
+		int currentPos = ModelHelper.getCurrentPosition();
+		Word currentWord = ModelHelper.getCurrentWord();
+		if (currentWord != null) {
+			List<Integer> gridIndexes = currentWord.getGridIndexes();
+			for (int i = 0; i < gridIndexes.size(); i++) {
+				int index = gridIndexes.get(i);
+				BGCell cell = getBGCell(index);
+				View view = this.gridView.getChildAt(index);
+				if (cell.isArea()) {
+					view.setBackgroundResource(currentPos == index ? R.drawable.area_current
+							: R.drawable.area_selected);
+				} else if (cell.isNumber()) {
+					view.setBackgroundResource(GameGridAdapter.getId(
+							"cell_" + (currentPos == index ? "y_" : "b_")
+									+ cell.getVal(), R.drawable.class));
+				} else {
+					view.setBackgroundResource(R.drawable.area_block);
+				}
 			}
-    	}
-    }
+		}
+	}
 
-    public void setSelection(List<View> views) {
-        ModelHelper.setSelection(views);
-    }
+	public void clearSelection() {
 
-    public void setCurrentWord(Word currentWord) {
-    	ModelHelper.setCurrentWord(currentWord);
-    }
+		int currentPos = ModelHelper.getCurrentPosition();
+		BGCell cell = getBGCell(currentPos);
+		if (cell.isEmpty())
+			return;
 
-    public void initBGManager(int width, int height, List<Word> hw, List<Word> vw) {
-    	
-    	this.rows = height;
-    	this.cols = width;
-    	
-        bgDataArr = new BGCell[height][width];
+		Word currentWord = ModelHelper.getCurrentWord();
+		if (currentWord != null) {
+			List<Integer> gridIndexes = currentWord.getGridIndexes();
+			for (int i = 0; i < gridIndexes.size(); i++) {
+				int index = gridIndexes.get(i);
+				cell = getBGCell(index);
+				View view = this.gridView.getChildAt(index);
+				if (cell.isArea()) {
+					view.setBackgroundResource(R.drawable.area_empty);
+				} else if (cell.isNumber()) {
+					view.setBackgroundResource(GameGridAdapter.getId("cell_"
+							+ cell.getVal(), R.drawable.class));
+				} else {
+					view.setBackgroundResource(R.drawable.area_block);
+				}
+			}
+		}
+	}
 
-        for (int c = 0; c < width; c++) {
-            for (int r = 0; r < height; r++) {
-                bgDataArr[r][c] = new BGCell(BGType.EMPTY);
-            }
-        }
+	public void setCurrentWord(Word currentWord) {
+		ModelHelper.setCurrentWord(currentWord);
+	}
 
-        for (Word entry : hw) {
+	public void initBGManager(int width, int height, List<Word> hw,
+			List<Word> vw) {
 
-            int x = entry.getX();
-            int y = entry.getY();
+		this.rows = height;
+		this.cols = width;
 
-//            Log.i("WORD", "hw " + entry.getText());
-            for (int i = 0; i < entry.getLength(); i++) {
-                if (y >= 0 && y < height && x + i >= 0 && x + i < width) {
-                    BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
-                    if(i == 0) bgCell.setVal(entry.getTitle());
+		bgDataArr = new BGCell[height][width];
+
+		for (int c = 0; c < width; c++) {
+			for (int r = 0; r < height; r++) {
+				bgDataArr[r][c] = new BGCell(BGType.EMPTY);
+			}
+		}
+
+		for (Word entry : hw) {
+
+			int x = entry.getX();
+			int y = entry.getY();
+
+			// Log.i("WORD", "hw " + entry.getText());
+			for (int i = 0; i < entry.getLength(); i++) {
+				if (y >= 0 && y < height && x + i >= 0 && x + i < width) {
+					BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER
+							: BGType.AREA);
+					if (i == 0)
+						bgCell.setVal(entry.getTitle());
 					bgDataArr[y][x + i] = bgCell;
-                }
-            }
-        }
-        for (Word entry : vw) {
+				}
+			}
+		}
+		for (Word entry : vw) {
 
-            int x = entry.getX();
-            int y = entry.getY();
+			int x = entry.getX();
+			int y = entry.getY();
 
-//            Log.i("WORD", "vw " + entry.getText());
-            for (int i = 0; i < entry.getLength(); i++) {
-                if (y + i >= 0 && y + i < height && x >= 0 && x < width) {
-                    if(!bgDataArr[y + i][x].isNumber()) {
-						BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
-						if(i == 0) bgCell.setVal(entry.getTitle());
+			// Log.i("WORD", "vw " + entry.getText());
+			for (int i = 0; i < entry.getLength(); i++) {
+				if (y + i >= 0 && y + i < height && x >= 0 && x < width) {
+					if (!bgDataArr[y + i][x].isNumber()) {
+						BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER
+								: BGType.AREA);
+						if (i == 0)
+							bgCell.setVal(entry.getTitle());
 						bgDataArr[y + i][x] = bgCell;
 					}
-                }
-            }
-        }
-        
-        Log.i("initBGManager", "OK");
+				}
+			}
+		}
 
-    }
-    
-    public BGCell getBGCell(int index) {
-    	return bgDataArr[index / cols][index % cols];
-    } 
+		Log.i("initBGManager", "OK");
+
+		debugBGArray();
+	}
+
+	public BGCell getBGCell(int index) {
+//		Log.i("getBGCell", String.valueOf(index));
+		return bgDataArr[index / cols][index % cols];
+	}
+
+	private void debugBGArray() {
+		
+		for (int r = 0; r < rows; r++) {
+			StringBuilder builder = new StringBuilder();
+			for (int c = 0; c < cols; c++) {
+				BGCell cell = bgDataArr[r][c];
+				if (cell.isArea()) {
+					builder.append(" ##");
+				} else if (cell.isNumber()) {
+					builder.append(" " + cell.getVal());
+				} else {
+					builder.append("   ");
+				}
+			}
+			Log.i("#", builder.toString());
+		}
+
+	}
 }
