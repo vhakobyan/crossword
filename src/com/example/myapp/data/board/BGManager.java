@@ -157,4 +157,35 @@ public class BGManager {
 		}
 
 	}
+
+    public void markCurrent(int x, int y) {
+        int index = ModelHelper.getGridIndex(x, y);
+        BGCell cell = getBGCell(index);
+        View view = gridView.getChildAt(index);
+        if(cell.isNumber())
+            view.setBackgroundResource(GameGridAdapter.getId("cell_y_" + cell.getVal(), R.drawable.class));
+        else if(cell.isArea())
+            view.setBackgroundResource(R.drawable.area_current);
+    }
+
+    public void markSelected(int x, int y) {
+        int index = ModelHelper.getGridIndex(x, y);
+        BGCell cell = getBGCell(index);
+        View view = gridView.getChildAt(index);
+        if(cell.isNumber())
+            view.setBackgroundResource(GameGridAdapter.getId("cell_b_" + cell.getVal(), R.drawable.class));
+        else if(cell.isArea())
+            view.setBackgroundResource(R.drawable.area_selected);
+    }
+
+    public void moveCurrent(int x, int y) {
+
+        Word currentWord = ModelHelper.getCurrentWord();
+        boolean horizontal = currentWord.getHorizontal();
+        x = (horizontal ? x + 1 : x);
+        y = (horizontal ? y: y + 1);
+
+        markCurrent(x, y);
+        markSelected(horizontal ? x + 1 : x, horizontal ? y: y + 1);
+    }
 }

@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -52,14 +53,17 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     private Word currentWord;    //Currently selected word
     private boolean horizontal;        // Direction of selection
 
+    private int currentX;
+    private int currentY;
+
     private GameManager manager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.game);
 
 
@@ -200,8 +204,6 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         int width = ModelHelper.getGrid().getWidth();
         int height = ModelHelper.getGrid().getHeight();
 
-        int currentX = this.downPos % width;
-        int currentY = this.downPos / width;
         System.out.println("onKeyUp: " + value + ", insert in: " + currentX + "x" + currentY);
 
         if (value.equals(" ") == false) {
