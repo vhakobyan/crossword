@@ -25,6 +25,8 @@ import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.GameManager;
 import com.example.myapp.data.Word;
+import com.example.myapp.data.board.GridPos;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,9 +54,6 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     private int currentPos;        // Current cursor position
     private Word currentWord;    //Currently selected word
     private boolean horizontal;        // Direction of selection
-
-    private int currentX;
-    private int currentY;
 
     private GameManager manager;
 
@@ -179,70 +178,15 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
     @Override
     public void onKeyDown(String value, int[] location, int width) {
-
-        int currentX = this.downPos % width;
-        int currentY = this.downPos / width;
-        System.out.println("onKeyDown: " + value + ", insert in: " + currentX + "x" + currentY);
-
-        if (value.equals(" ") == false) {
-            int offsetX = (this.keyboardOverlay.getWidth() - width) / 2;
-            int offsetY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, KEYBOARD_OVERLAY_OFFSET, getResources().getDisplayMetrics());
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)this.keyboardOverlay.getLayoutParams();
-//            lp.leftMargin = location[0] - offsetX;
-//            lp.topMargin = location[1] - offsetY;
-//            this.keyboardOverlay.setLayoutParams(lp);
-//            this.keyboardOverlay.setText(value);
-//            this.keyboardOverlay.clearAnimation();
-//            this.keyboardOverlay.setVisibility(View.VISIBLE);
-        }
-
     }
 
     @Override
     public void onKeyUp(String value) {
-
-        int width = ModelHelper.getGrid().getWidth();
-        int height = ModelHelper.getGrid().getHeight();
-
-        System.out.println("onKeyUp: " + value + ", insert in: " + currentX + "x" + currentY);
-
-        if (value.equals(" ") == false) {
-            this.keyboardOverlay.setAnimation(AnimationUtils.loadAnimation(this, R.anim.keyboard_overlay_fade_out));
-            this.keyboardOverlay.setVisibility(View.INVISIBLE);
-        }
-
-        // Si aucun mot selectionne, retour
-        if (this.currentWord == null)
-            return;
-
-        // Case actuelle
-        int x = currentX;
-        int y = currentY;
-
-        if (this.gridAdapter.isBlock(x, y))
-            return;
-
-        this.gridAdapter.setValue(x, y, value);
+        int currentPosition = ModelHelper.getCurrentPosition();
+        GridPos pos = ModelHelper.getGridPosition(currentPosition);
+        this.gridAdapter.setValue(pos.getCol(), pos.getRow(), value);
+        this.manager.onKeyUp();
         this.gridAdapter.notifyDataSetChanged();
-
-        if (value.equals(" ")) {
-            x = (this.horizontal ? x - 1 : x);
-            y = (this.horizontal ? y: y - 1);
-        }
-        else
-        {
-            x = (this.horizontal ? x + 1 : x);
-            y = (this.horizontal ? y: y + 1);
-        }
-
-        // Si la case suivante est disponible, met la case en jaune, remet l'ancienne en bleu, et set la nouvelle position
-        if (x >= 0 && x < width && y >= 0 && y < height && this.gridAdapter.isBlock(x, y) == false) {
-            this.gridView.getChildAt(y * width + x).setBackgroundResource(R.drawable.area_current);
-            this.gridView.getChildAt(currentY * width + currentX).setBackgroundResource(R.drawable.area_selected);
-            currentX = x;
-            currentY = y;
-        }
-
     }
 
     @Override

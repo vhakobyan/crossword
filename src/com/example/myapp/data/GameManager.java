@@ -9,6 +9,7 @@ import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.board.BGManager;
 import com.example.myapp.data.board.DataManager;
+import com.example.myapp.data.board.GridPos;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,4 +69,12 @@ public class GameManager {
 	public void setCurrentPosition(int currentPos) {
 		dataManager.setCurrentPosition(currentPos);
 	}
+
+    public void onKeyUp() {
+        int currentPosition = dataManager.getCurrentPosition();
+        GridPos currPos = ModelHelper.getGridPosition(currentPosition);
+        GridPos newPos = bgManager.moveCurrent(currPos.getRow(), currPos.getCol());
+        dataManager.setCurrentPosition(ModelHelper.getGridIndex(newPos.getRow(), newPos.getCol()));
+    }
+
 }

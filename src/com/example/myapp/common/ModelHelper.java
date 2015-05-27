@@ -76,14 +76,12 @@ public class ModelHelper {
     public static GridPos getGridPosition(int index) {
     	Grid grid = getGrid();
     	int row = index / grid.getWidth();
-    	int col = index % grid.getHeight();
+    	int col = index % grid.getWidth();
     	return new GridPos(row, col);
     }
     
     public static int getGridIndex(int row, int col) {
-    	Grid grid = getGrid();
-    	return col * grid.getWidth() + row;
+    	return row * getGrid().getWidth() + col;
     }
 
-	
 }

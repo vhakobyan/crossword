@@ -57,9 +57,9 @@ public class Word {
 		List<Integer> list = new ArrayList<Integer>();
 		for(int i = 0; i < text.length(); i++) {
 			if(horizontal) {
-				list.add(ModelHelper.getGridIndex(x + i, y));
+				list.add(ModelHelper.getGridIndex(y, x + i));
 			} else {
-				list.add(ModelHelper.getGridIndex(x, y + i));
+				list.add(ModelHelper.getGridIndex(y + i, x));
 			}
 		}
 		return list;

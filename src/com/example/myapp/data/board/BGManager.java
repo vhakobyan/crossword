@@ -158,8 +158,8 @@ public class BGManager {
 
 	}
 
-    public void markCurrent(int x, int y) {
-        int index = ModelHelper.getGridIndex(x, y);
+    public void markCurrent(int row, int col) {
+        int index = ModelHelper.getGridIndex(row, col);
         BGCell cell = getBGCell(index);
         View view = gridView.getChildAt(index);
         if(cell.isNumber())
@@ -178,14 +178,24 @@ public class BGManager {
             view.setBackgroundResource(R.drawable.area_selected);
     }
 
-    public void moveCurrent(int x, int y) {
+    public GridPos moveCurrent(int row, int col) {
 
         Word currentWord = ModelHelper.getCurrentWord();
         boolean horizontal = currentWord.getHorizontal();
-        x = (horizontal ? x + 1 : x);
-        y = (horizontal ? y: y + 1);
 
-        markCurrent(x, y);
-        markSelected(horizontal ? x + 1 : x, horizontal ? y: y + 1);
+        int newRow = horizontal ? row : row + 1;
+        int newCol = horizontal ? col + 1 : col;
+
+        int index = ModelHelper.getGridIndex(newRow, newCol);
+        BGCell cell = getBGCell(index);
+
+        if(!cell.isEmpty()) {
+            markSelected(row, col);
+            markCurrent(newRow, newCol);
+            return new GridPos(newRow, newCol);
+        }
+
+        return new GridPos(row, col);
     }
+
 }
