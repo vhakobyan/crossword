@@ -4,9 +4,11 @@ import android.content.res.AssetManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
+import com.example.myapp.data.board.BGCell;
 import com.example.myapp.data.board.BGManager;
 import com.example.myapp.data.board.DataManager;
 import com.example.myapp.data.board.GridPos;
@@ -75,6 +77,10 @@ public class GameManager {
         GridPos currPos = ModelHelper.getGridPosition(currentPosition);
         GridPos newPos = bgManager.moveCurrent(currPos.getRow(), currPos.getCol());
         dataManager.setCurrentPosition(ModelHelper.getGridIndex(newPos.getRow(), newPos.getCol()));
+    }
+
+    public BGCell getBGCell(int index) {
+        return bgManager.getBGCell(index);
     }
 
 }
