@@ -174,10 +174,10 @@ public class BGManager {
         BGCell cell = getBGCell(index);
 
         if (!cell.isEmpty()) {
-            markCell(ModelHelper.getGridIndex(row, col));
-            markCell(ModelHelper.getGridIndex(newRow, newCol));
-//            markSelected(row, col);
-//            markCurrent(newRow, newCol);
+//            markCell(ModelHelper.getGridIndex(row, col));
+//            markCell(ModelHelper.getGridIndex(newRow, newCol));
+            markSelected(row, col);
+            markCurrent(newRow, newCol);
             return new GridPos(newRow, newCol);
         }
 
