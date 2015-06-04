@@ -57,13 +57,12 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.game);
 
-
         try {
-        	
 
             this.gridView = (GridView) findViewById(R.id.grid);
             KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboard);
@@ -176,5 +175,9 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     @Override
     public void setDraft(boolean isDraft) {
 
+    }
+
+    public GameManager getManager() {
+        return manager;
     }
 }

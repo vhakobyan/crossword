@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.myapp.activity.GameActivity;
 import com.example.myapp.R;
 import com.example.myapp.common.ModelHelper;
+import com.example.myapp.data.GameManager;
 import com.example.myapp.data.Word;
 
 import java.lang.reflect.Field;
@@ -37,8 +38,6 @@ public class GameGridAdapter extends BaseAdapter {
     private String[][] area;            // Tableau représentant les lettres du joueur
     // right letters
     private String[][] correctionArea; // Tableau représentant les lettres correctes
-
-    private String[][] bgData;
 
     private boolean isLower;
     private boolean isDraft;
@@ -63,19 +62,17 @@ public class GameGridAdapter extends BaseAdapter {
 
         // Fill area and areaCorrection
         this.area = new String[this.height][this.width];
-        this.bgData = new String[this.height][this.width];
         this.correctionArea = new String[this.height][this.width];
 
-        for (Word entry : ModelHelper.getHorizontalWords()) {
+        for (Word words : ModelHelper.getHorizontalWords()) {
 
-            String tmp = entry.getTmp();
-            String text = entry.getText();
-            String title = entry.getTitle();
-            boolean horizontal = entry.isHorizontal();
-            int x = entry.getX();
-            int y = entry.getY();
+            String tmp = words.getTmp();
+            String text = words.getText();
 
-            for (int i = 0; i < entry.getLength(); i++) {
+            int x = words.getX();
+            int y = words.getY();
+
+            for (int i = 0; i < words.getLength(); i++) {
 
                 if (y >= 0 && y < this.height && x + i >= 0 && x + i < this.width) {
                     //this.area[y][x + i] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
@@ -85,12 +82,7 @@ public class GameGridAdapter extends BaseAdapter {
                         //bgDataArr[y][x + i] = cell;
                     } else {
                         this.area[y][x + i] = " ";
-                        if (i == 0) {
-                            this.bgData[y][x + i] = title;
-                        }
-                        else if(this.bgData[y][x + i] == null) {
-                            this.bgData[y][x + i] = "";
-                        }
+
                     }
                     this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
 
@@ -98,16 +90,15 @@ public class GameGridAdapter extends BaseAdapter {
             }
         }
 
-        for (Word entry : ModelHelper.getVerticalWords()) {
+        for (Word words : ModelHelper.getVerticalWords()) {
 
-            String tmp = entry.getTmp();
-            String text = entry.getText();
-            String title = entry.getTitle();
-            boolean horizontal = entry.isHorizontal();
-            int x = entry.getX();
-            int y = entry.getY();
+            String tmp = words.getTmp();
+            String text = words.getText();
 
-            for (int i = 0; i < entry.getLength(); i++) {
+            int x = words.getX();
+            int y = words.getY();
+
+            for (int i = 0; i < words.getLength(); i++) {
 
                 if (y + i >= 0 && y + i < this.height && x >= 0 && x < this.width) {
                     //this.area[y + i][x] = tmp != null ? String.valueOf(tmp.charAt(i)) : (k == 1) ? title : " ";
@@ -115,12 +106,7 @@ public class GameGridAdapter extends BaseAdapter {
                         this.area[y + i][x] = String.valueOf(tmp.charAt(i));
                     } else {
                         this.area[y + i][x] = " ";
-                        if (i == 0) {
-                            this.bgData[y + i][x] = title;
-                        }
-                        else if(this.bgData[y + i][x] == null) {
-                            this.bgData[y + i][x] = "";
-                        }
+
                     }
                     this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
                 }
@@ -154,11 +140,10 @@ public class GameGridAdapter extends BaseAdapter {
 //		this.lastPosition = position;
 
         TextView v = this.views.get(position);
-        int y = (int) (position / this.width);
-        int x = (int) (position % this.width);
-        String data = this.area[y][x];
-        String bgData = this.bgData[y][x];
-        String correction = this.correctionArea[y][x];
+        int row = position / this.width;
+        int col = position % this.width;
+        String data = this.area[row][col];
+        String correction = this.correctionArea[row][col];
 
         // Creation du composant
         if (v == null) {
@@ -167,11 +152,14 @@ public class GameGridAdapter extends BaseAdapter {
             v.setTextSize((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4 ? 30 : 20);
             v.setGravity(Gravity.CENTER);
 
-            if (bgData != null && "".equals(bgData)) {
+            GameManager manager = ((GameActivity) context).getManager();
+            BGCell bgCell = manager.getBGCell(position);
+
+            if (bgCell.isArea()) {
                 v.setBackgroundResource(R.drawable.area_empty);
                 v.setTag(AREA_WRITABLE);
-            } else if (bgData != null && bgData.trim().length() > 0) {
-                v.setBackgroundResource(getId("cell_" + bgData, R.drawable.class));
+            } else if (bgCell.isNumber()) {
+                v.setBackgroundResource(getId("cell_" + bgCell.getVal(), R.drawable.class));
                 v.setTag(AREA_WRITABLE);
             } else {
                 v.setBackgroundResource(R.drawable.area_block);
@@ -267,7 +255,4 @@ public class GameGridAdapter extends BaseAdapter {
         }
     }
 
-    public String[][] getbgData(){
-        return this.bgData;
-    }
 }
