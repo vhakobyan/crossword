@@ -2,6 +2,7 @@ package com.example.myapp.data.board;
 
 import java.util.List;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -209,4 +210,12 @@ public class BGManager {
             view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
     }
 
+    public void markCorrect(Word word) {
+        List<Integer> gridIndexes = word.getGridIndexes();
+        for (Integer index : gridIndexes) {
+            View view = this.gridView.getChildAt(index);
+            view.setBackgroundColor(Color.GREEN);
+//            view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
+        }
+    }
 }

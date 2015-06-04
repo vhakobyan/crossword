@@ -33,8 +33,8 @@ public class DataManager {
         ModelHelper.setCurrentWord(currentWord);
     }
 
-    public void getCurrentWord() {
-        ModelHelper.getCurrentWord();
+    public Word getCurrentWord() {
+        return ModelHelper.getCurrentWord();
     }
 
     public void setVerticalWords(List<Word> words) {

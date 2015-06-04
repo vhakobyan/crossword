@@ -70,4 +70,7 @@ public class Word {
 		return list;
 	}
 
+    public boolean isCorrect() {
+        return text.equalsIgnoreCase(tmp);
+    }
 }

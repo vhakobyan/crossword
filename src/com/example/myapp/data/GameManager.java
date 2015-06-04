@@ -72,11 +72,20 @@ public class GameManager {
 		dataManager.setCurrentPosition(currentPos);
 	}
 
-    public void onKeyUp() {
+    public void onKeyUp(String letter) {
         int currentPosition = dataManager.getCurrentPosition();
         GridPos currPos = ModelHelper.getGridPosition(currentPosition);
         GridPos newPos = bgManager.moveCurrent(currPos.getRow(), currPos.getCol());
         dataManager.setCurrentPosition(ModelHelper.getGridIndex(newPos.getRow(), newPos.getCol()));
+
+        //TODO mark if is correct the word
+        Word currentWord = dataManager.getCurrentWord();
+        String tmp = currentWord.getTmp();
+        tmp += letter;
+        currentWord.setTmp(tmp);
+        if(currentWord.isCorrect()) {
+            bgManager.markCorrect(currentWord);
+        }
     }
 
     public BGCell getBGCell(int index) {

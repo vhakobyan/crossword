@@ -137,22 +137,29 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         int downX = this.downPos % width;
         int downY = this.downPos / width;
 
-        if (this.downPos == position) this.horizontal = !this.horizontal;
-        Word currentWord = manager.getWord(downX, downY, this.horizontal);
+        if (this.downPos == position) {
 
-        if(currentWord != null) {
+            this.horizontal = !this.horizontal;
 
-            this.horizontal = currentWord.isHorizontal();
+            Word currentWord = manager.getWord(downX, downY, this.horizontal);
 
-            if (this.downPos == position) {
+            if(currentWord != null) {
 
-                this.txtDescription.setText(currentWord.getDescription());
-                manager.clearBGSelection();
-                manager.setCurrentWord(currentWord);
-                manager.setCurrentPosition(position);
-                manager.markBGSelection();
+                this.horizontal = currentWord.isHorizontal();
+
+                if (this.downPos == position) {
+
+                    this.txtDescription.setText(currentWord.getDescription());
+                    currentWord.setTmp("");
+
+                    manager.clearBGSelection();
+                    manager.setCurrentWord(currentWord);
+                    manager.setCurrentPosition(position);
+                    manager.markBGSelection();
+                }
             }
         }
+
     }
 
     private void onActionDown(int position) {
@@ -168,7 +175,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         int currentPosition = ModelHelper.getCurrentPosition();
         GridPos pos = ModelHelper.getGridPosition(currentPosition);
         this.gridAdapter.setValue(pos.getCol(), pos.getRow(), value);
-        this.manager.onKeyUp();
+        this.manager.onKeyUp(value);
         this.gridAdapter.notifyDataSetChanged();
     }
 
