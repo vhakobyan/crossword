@@ -165,7 +165,7 @@ public class BGManager {
     public GridPos moveCurrent(int row, int col) {
 
         Word currentWord = ModelHelper.getCurrentWord();
-        boolean horizontal = currentWord.getHorizontal();
+        boolean horizontal = currentWord.isHorizontal();
 
         int newRow = horizontal ? row : row + 1;
         int newCol = horizontal ? col + 1 : col;

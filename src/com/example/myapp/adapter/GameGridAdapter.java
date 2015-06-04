@@ -71,7 +71,7 @@ public class GameGridAdapter extends BaseAdapter {
             String tmp = entry.getTmp();
             String text = entry.getText();
             String title = entry.getTitle();
-            boolean horizontal = entry.getHorizontal();
+            boolean horizontal = entry.isHorizontal();
             int x = entry.getX();
             int y = entry.getY();
 
@@ -103,7 +103,7 @@ public class GameGridAdapter extends BaseAdapter {
             String tmp = entry.getTmp();
             String text = entry.getText();
             String title = entry.getTitle();
-            boolean horizontal = entry.getHorizontal();
+            boolean horizontal = entry.isHorizontal();
             int x = entry.getX();
             int y = entry.getY();
 
