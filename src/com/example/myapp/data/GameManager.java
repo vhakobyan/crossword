@@ -83,4 +83,7 @@ public class GameManager {
         return bgManager.getBGCell(index);
     }
 
+    public Word getWord(int downX, int downY, boolean horizontal) {
+        return dataManager.getWord(downX, downY, horizontal);
+    }
 }

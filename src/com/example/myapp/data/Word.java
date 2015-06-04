@@ -27,11 +27,16 @@ public class Word {
 	
 	public void		setDescription(String value) { this.description= value; }
 	public String	getDescription() { return this.description; }
-	
-	public boolean	getHorizontal() { return this.horizontal; }
-	public void		setHorizontal(boolean value) { this.horizontal = value; }
 
-	public void		setX(int value) { this.x = value; }
+    public boolean isHorizontal() {
+        return horizontal;
+    }
+
+    public void setHorizontal(boolean horizontal) {
+        this.horizontal = horizontal;
+    }
+
+    public void		setX(int value) { this.x = value; }
 	public int		getX() { return this.x; }
 	public int 		getXMax() { return this.horizontal ? this.x + this.length - 1: this.x; }
 	

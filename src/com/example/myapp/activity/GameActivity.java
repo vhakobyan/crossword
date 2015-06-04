@@ -25,6 +25,7 @@ import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.GameManager;
 import com.example.myapp.data.Word;
+import com.example.myapp.data.board.BGCell;
 import com.example.myapp.data.board.GridPos;
 
 import org.json.JSONException;
@@ -37,22 +38,17 @@ import java.util.List;
 
 public class GameActivity extends Activity implements OnTouchListener, KeyboardViewInterface {
 
-    public static final float 	KEYBOARD_OVERLAY_OFFSET = 90;
     private static final String TAG = "GameActivity";
 
-    public enum GRID_MODE {NORMAL, CHECK, SOLVE};
+    public enum GRID_MODE {NORMAL, CHECK, SOLVE}
     public GRID_MODE currentMode = GRID_MODE.NORMAL;
 
     private GridView gridView;
-    private KeyboardView 	keyboardView;
     private GameGridAdapter gridAdapter;
     private TextView txtDescription;
-    private TextView keyboardOverlay;
 
 
     private int downPos;        // Position or player supported
-    private int currentPos;        // Current cursor position
-    private Word currentWord;    //Currently selected word
     private boolean horizontal;        // Direction of selection
 
     private GameManager manager;
@@ -70,9 +66,9 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         	
 
             this.gridView = (GridView) findViewById(R.id.grid);
-            this.keyboardView = (KeyboardView)findViewById(R.id.keyboard);
+            KeyboardView keyboardView = (KeyboardView) findViewById(R.id.keyboard);
             this.txtDescription = (TextView) findViewById(R.id.description);
-            this.keyboardOverlay = (TextView)findViewById(R.id.keyboard_overlay);
+            TextView keyboardOverlay = (TextView) findViewById(R.id.keyboard_overlay);
 
             this.txtDescription.setText(R.string.lblPleaseTouch);
 
@@ -95,10 +91,10 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             this.gridView.setAdapter(this.gridAdapter);
 
 
-            this.keyboardView.setDelegate(this);
-            android.view.ViewGroup.LayoutParams KeyboardParams = this.keyboardView.getLayoutParams();
+            keyboardView.setDelegate(this);
+            android.view.ViewGroup.LayoutParams KeyboardParams = keyboardView.getLayoutParams();
             KeyboardParams.height = keyboardHeight;
-            this.keyboardView.setLayoutParams(KeyboardParams);
+            keyboardView.setLayoutParams(KeyboardParams);
 
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -122,47 +118,13 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     @Override
     public boolean onTouch(View view, MotionEvent event) {
 
-        int x1 = (int) event.getX();
-        int y1 = (int) event.getY();
-        int position = this.gridView.pointToPosition(x1, y1);
-
-        int width = ModelHelper.getGrid().getWidth();
-        int downX = this.downPos % width;
-        int downY = this.downPos / width;
+        int position = this.gridView.pointToPosition((int) event.getX(), (int) event.getY());
+        BGCell bgCell = manager.getBGCell(position);
+        if(bgCell.isEmpty()) return true;
 
         switch (event.getAction()) {
-
-            case MotionEvent.ACTION_DOWN:
-            	Log.i("TAG", "ACTION_DOWN, x:" + downX + ", y:" + downY + ", position: " + position);
-                this.downPos = position;
-                break;
-            case MotionEvent.ACTION_UP: {
-            	Log.i("TAG", "ACTION_UP, x:" + downX + ", y:" + downY + ", position: " + position);
-                // rejecting click on empty (black) area
-                View child = this.gridView.getChildAt(position);
-                if (child == null || child.getTag().equals(GameGridAdapter.AREA_BLOCK)) return true;
-                // using horizontal or vertical words depend on click count
-                if (this.downPos == position && this.currentPos == position) this.horizontal = !this.horizontal;
-                
-                //retrieving current word
-                this.currentWord = getWord(downX, downY, this.horizontal);
-                if(this.currentWord == null) return true;
- 
-                this.horizontal = this.currentWord.getHorizontal();
-
-                if (this.downPos == position) {
-                	
-                    this.currentPos = position;
-                    this.txtDescription.setText(this.currentWord.getDescription());
-
-                    manager.clearBGSelection();
-                    manager.setCurrentWord(this.currentWord);
-                    manager.setCurrentPosition(this.currentPos);
-                    manager.markBGSelection();
-                }
-
-                break;
-            }
+            case MotionEvent.ACTION_DOWN : onActionDown(position); break;
+            case MotionEvent.ACTION_UP   : onActionUp(position);   break;
         }
 
         this.gridAdapter.notifyDataSetChanged();
@@ -170,10 +132,32 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
         return true;
     }
 
-    private Word getWord(int x, int y, boolean horizontal) {
-        Word hw = ModelHelper.getHW(x, y);
-        Word vw = ModelHelper.getVW(x, y);
-        return horizontal ? (hw == null ? vw : hw) : (vw == null ?  hw : vw);
+    private void onActionUp(int position) {
+
+        int width = ModelHelper.getGrid().getWidth();
+        int downX = this.downPos % width;
+        int downY = this.downPos / width;
+
+        if (this.downPos == position) this.horizontal = !this.horizontal;
+        Word currentWord = manager.getWord(downX, downY, this.horizontal);
+
+        if(currentWord != null) {
+
+            this.horizontal = currentWord.isHorizontal();
+
+            if (this.downPos == position) {
+
+                this.txtDescription.setText(currentWord.getDescription());
+                manager.clearBGSelection();
+                manager.setCurrentWord(currentWord);
+                manager.setCurrentPosition(position);
+                manager.markBGSelection();
+            }
+        }
+    }
+
+    private void onActionDown(int position) {
+        this.downPos = position;
     }
 
     @Override

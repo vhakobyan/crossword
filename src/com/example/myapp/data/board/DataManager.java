@@ -114,4 +114,10 @@ public class DataManager {
         return json;
 
     }
+
+    public Word getWord(int x, int y, boolean horizontal) {
+        Word hw = ModelHelper.getHW(x, y);
+        Word vw = ModelHelper.getVW(x, y);
+        return horizontal ? (hw == null ? vw : hw) : (vw == null ?  hw : vw);
+    }
 }
