@@ -134,19 +134,11 @@ public class GameGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//		// Stop le traitement si la vue vient d'etre genere
-//		if (this.lastPosition == position)
-//			return this.views.get(position);
-//		this.lastPosition = position;
 
         TextView v = this.views.get(position);
-        int row = position / this.width;
-        int col = position % this.width;
-        String data = this.area[row][col];
-        String correction = this.correctionArea[row][col];
 
-        // Creation du composant
         if (v == null) {
+
             v = new TextView(context);
             v.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.FILL_PARENT, this.displayHeight));
             v.setTextSize((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4 ? 30 : 20);
@@ -168,6 +160,11 @@ public class GameGridAdapter extends BaseAdapter {
 
             this.views.put(position, v);
         }
+
+        int row = position / this.width;
+        int col = position % this.width;
+        String data = this.area[row][col];
+        String correction = this.correctionArea[row][col];
 
         // Si la grille est en mode check, colore les fautes en rouge
         if (((GameActivity) context).currentMode == GameActivity.GRID_MODE.CHECK) {

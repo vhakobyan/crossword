@@ -213,8 +213,9 @@ public class BGManager {
     public void markCorrect(Word word) {
         List<Integer> gridIndexes = word.getGridIndexes();
         for (Integer index : gridIndexes) {
-            View view = this.gridView.getChildAt(index);
-            view.setBackgroundColor(Color.GREEN);
+            TextView view = (TextView) this.gridView.getChildAt(index);
+            view.setTextColor(Color.GREEN);
+//            view.setBackgroundColor(Color.GREEN);
 //            view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
         }
     }

@@ -21,6 +21,7 @@ import com.example.myapp.KeyboardView;
 import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
+import com.example.myapp.common.GameState;
 import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.GameManager;
@@ -38,6 +39,8 @@ import java.util.List;
 
 public class GameActivity extends Activity implements OnTouchListener, KeyboardViewInterface {
 
+    private static final String GAME_STATE = "game_state";
+
     private static final String TAG = "GameActivity";
 
     public enum GRID_MODE {NORMAL, CHECK, SOLVE}
@@ -51,6 +54,8 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     private int downPos;        // Position or player supported
     private boolean horizontal;        // Direction of selection
 
+    private int a;
+    private GameState gameState;
     private GameManager manager;
 
 
@@ -58,7 +63,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /*this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.game);
 
@@ -97,12 +102,44 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }*/
+
+        if(savedInstanceState != null){
+            a = savedInstanceState.getInt(GAME_STATE, 0);
+//                gameState = (GameState) savedInstanceState.getSerializable(GAME_STATE);
+            Log.i(TAG, "OLD game state");
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(GAME_STATE, 5);
+        Log.i(TAG, "onSaveInstanceState");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 
     private void readPreferences() {
