@@ -2,11 +2,9 @@ package com.example.myapp.data.board;
 
 import java.util.List;
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
@@ -27,37 +25,6 @@ public class BGManager {
 
     public BGManager(GridView gv) {
         this.gridView = gv;
-    }
-
-    public void markBGSelection() {
-
-        Word currentWord = ModelHelper.getCurrentWord();
-        if (currentWord != null) {
-            List<Integer> gridIndexes = currentWord.getGridIndexes();
-            for (int i = 0; i < gridIndexes.size(); i++) {
-                markCell(gridIndexes.get(i));
-            }
-        }
-    }
-
-    public void clearSelection() {
-
-        int currentPos = ModelHelper.getCurrentPosition();
-        BGCell cell = getBGCell(currentPos);
-        if (cell.isEmpty())
-            return;
-
-        Word currentWord = ModelHelper.getCurrentWord();
-        if (currentWord != null) {
-            List<Integer> gridIndexes = currentWord.getGridIndexes();
-            for (int i = 0; i < gridIndexes.size(); i++) {
-                clearCell(gridIndexes.get(i));
-            }
-        }
-    }
-
-    public void setCurrentWord(Word currentWord) {
-        ModelHelper.setCurrentWord(currentWord);
     }
 
     public void initBGManager(int width, int height, List<Word> hw, List<Word> vw) {
@@ -82,8 +49,7 @@ public class BGManager {
             for (int i = 0; i < entry.getLength(); i++) {
                 if (y >= 0 && y < height && x + i >= 0 && x + i < width) {
                     BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
-                    if (i == 0)
-                        bgCell.setVal(entry.getTitle());
+                    bgCell.setVal(i == 0 ? entry.getTitle() : "00");
                     bgDataArr[y][x + i] = bgCell;
                 }
             }
@@ -98,8 +64,7 @@ public class BGManager {
                 if (y + i >= 0 && y + i < height && x >= 0 && x < width) {
                     if (!bgDataArr[y + i][x].isNumber()) {
                         BGCell bgCell = new BGCell(i == 0 ? BGType.NUMBER : BGType.AREA);
-                        if (i == 0)
-                            bgCell.setVal(entry.getTitle());
+                        bgCell.setVal(i == 0 ? entry.getTitle() : "00");
                         bgDataArr[y + i][x] = bgCell;
                     }
                 }
@@ -130,12 +95,10 @@ public class BGManager {
             StringBuilder builder = new StringBuilder();
             for (int c = 0; c < cols; c++) {
                 BGCell cell = bgDataArr[r][c];
-                if (cell.isArea()) {
-                    builder.append(" ##");
-                } else if (cell.isNumber()) {
+                if (cell.isArea() || cell.isNumber()) {
                     builder.append(" ").append(cell.getVal());
                 } else {
-                    builder.append("   ");
+                    builder.append(" ##");
                 }
             }
             Log.i("#", builder.toString());
@@ -143,61 +106,25 @@ public class BGManager {
 
     }
 
-    public void markCurrent(int row, int col) {
-        int index = ModelHelper.getGridIndex(row, col);
-        BGCell cell = getBGCell(index);
-        View view = gridView.getChildAt(index);
-        if(cell.isNumber())
-            view.setBackgroundResource(GameGridAdapter.getId("cell_y_" + cell.getVal(), R.drawable.class));
-        else if(cell.isArea())
-            view.setBackgroundResource(R.drawable.area_current);
+    public void markCellCurrent(int row, int col) {
+        markCell(row, col, "cell_y_");
     }
 
-    public void markSelected(int x, int y) {
+    public void markCellSelected(int row, int col) {
+        markCell(row, col, "cell_b_");
+    }
+
+    public void markCellCompleted(int row, int col) {
+        markCell(row, col, "cell_g_");
+    }
+
+    private void markCell(int x, int y, String color) {
         int index = ModelHelper.getGridIndex(x, y);
         BGCell cell = getBGCell(index);
-        View view = gridView.getChildAt(index);
-        if(cell.isNumber())
-            view.setBackgroundResource(GameGridAdapter.getId("cell_b_" + cell.getVal(), R.drawable.class));
-        else if(cell.isArea())
-            view.setBackgroundResource(R.drawable.area_selected);
-    }
-
-    public GridPos moveCurrent(int row, int col) {
-
-        Word currentWord = ModelHelper.getCurrentWord();
-        boolean horizontal = currentWord.isHorizontal();
-
-        int newRow = horizontal ? row : row + 1;
-        int newCol = horizontal ? col + 1 : col;
-
-        int index = ModelHelper.getGridIndex(newRow, newCol);
-        BGCell cell = getBGCell(index);
-
-        if (!cell.isEmpty()) {
-//            markCell(ModelHelper.getGridIndex(row, col));
-//            markCell(ModelHelper.getGridIndex(newRow, newCol));
-            markSelected(row, col);
-            markCurrent(newRow, newCol);
-            return new GridPos(newRow, newCol);
+        if(!cell.isEmpty()) {
+            View view = gridView.getChildAt(index);
+            view.setBackgroundResource(GameGridAdapter.getId(color + cell.getVal(), R.drawable.class));
         }
-
-        return new GridPos(row, col);
-    }
-
-
-    private void markCell(int index) {
-
-        BGCell cell = getBGCell(index);
-        View view = this.gridView.getChildAt(index);
-
-        int currentPos = ModelHelper.getCurrentPosition();
-
-        if (cell.isArea())
-            view.setBackgroundResource(currentPos == index ? R.drawable.area_current : R.drawable.area_selected);
-        else if (cell.isNumber())
-            view.setBackgroundResource(GameGridAdapter.getId("cell_" + (currentPos == index ? "y_" : "b_") + cell.getVal(), R.drawable.class));
-
     }
 
     private void clearCell(int index) {
@@ -210,13 +137,40 @@ public class BGManager {
             view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
     }
 
-    public void markCorrect(Word word) {
-        List<Integer> gridIndexes = word.getGridIndexes();
-        for (Integer index : gridIndexes) {
-            TextView view = (TextView) this.gridView.getChildAt(index);
-            view.setTextColor(Color.GREEN);
-//            view.setBackgroundColor(Color.GREEN);
-//            view.setBackgroundResource(GameGridAdapter.getId("cell_" + cell.getVal(), R.drawable.class));
+    public void markWordComplete(Word word) {
+        List<GridPos> gridPositions = word.getGridPositions();
+        for (GridPos pos : gridPositions) {
+            markCellCompleted(pos.getRow(), pos.getCol());
+        }
+    }
+
+    public void markWordSelected() {
+
+        Word currentWord = ModelHelper.getCurrentWord();
+        if (currentWord != null) {
+            List<GridPos> gridPositions = currentWord.getGridPositions();
+            int currentPos = ModelHelper.getCurrentPosition();
+            for (GridPos pos : gridPositions) {
+                int index = ModelHelper.getGridIndex(pos.getRow(), pos.getCol());
+                if(currentPos == index) markCellCurrent(pos.getRow(), pos.getCol());
+                else  markCellSelected(pos.getRow(), pos.getCol());
+            }
+        }
+    }
+
+    public void clearWordSelection() {
+
+        int currentPos = ModelHelper.getCurrentPosition();
+        BGCell cell = getBGCell(currentPos);
+        if (cell.isEmpty())
+            return;
+
+        Word currentWord = ModelHelper.getCurrentWord();
+        if (currentWord != null) {
+            List<Integer> gridIndexes = currentWord.getGridIndexes();
+            for (int i = 0; i < gridIndexes.size(); i++) {
+                clearCell(gridIndexes.get(i));
+            }
         }
     }
 }

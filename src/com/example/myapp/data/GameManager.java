@@ -1,23 +1,14 @@
 package com.example.myapp.data;
 
 import android.content.res.AssetManager;
-import android.util.Log;
-import android.view.View;
 import android.widget.GridView;
-import android.widget.TextView;
 
-import com.example.myapp.common.JSONHelper;
 import com.example.myapp.common.ModelHelper;
 import com.example.myapp.data.board.BGCell;
 import com.example.myapp.data.board.BGManager;
 import com.example.myapp.data.board.DataManager;
 import com.example.myapp.data.board.GridPos;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -36,7 +27,7 @@ public class GameManager {
     }
 
     public void clearBGSelection() {
-        bgManager.clearSelection();
+        bgManager.clearWordSelection();
     }
 
     public void setCurrentWord(Word currentWord) {
@@ -57,34 +48,51 @@ public class GameManager {
     }
 
     private void initBGManager() {
-    	int width = dataManager.getGridWidth();
+        int width = dataManager.getGridWidth();
         int height = dataManager.getGridHeight();
-    	List<Word> horizontalWords = dataManager.getHorizontalWords();
+        List<Word> horizontalWords = dataManager.getHorizontalWords();
         List<Word> verticalWords = dataManager.getVerticalWords();
         bgManager.initBGManager(width, height, horizontalWords, verticalWords);
     }
 
-	public void markBGSelection() {
-		bgManager.markBGSelection();
-	}
+    public void markBGSelection() {
+        bgManager.markWordSelected();
+    }
 
-	public void setCurrentPosition(int currentPos) {
-		dataManager.setCurrentPosition(currentPos);
-	}
+    public void setCurrentPosition(int currentPos) {
+        dataManager.setCurrentPosition(currentPos);
+    }
 
     public void onKeyUp(String letter) {
+
+        int gridWidth = dataManager.getGridWidth();
+        int gridHeight = dataManager.getGridHeight();
+        Word currentWord = dataManager.getCurrentWord();
         int currentPosition = dataManager.getCurrentPosition();
         GridPos currPos = ModelHelper.getGridPosition(currentPosition);
-        GridPos newPos = bgManager.moveCurrent(currPos.getRow(), currPos.getCol());
-        dataManager.setCurrentPosition(ModelHelper.getGridIndex(newPos.getRow(), newPos.getCol()));
+
+        int row = currPos.getRow();
+        int col = currPos.getCol();
+
+        boolean horizontal = currentWord.isHorizontal();
+
+        int newRow = horizontal ? row : row + 1;
+        int newCol = horizontal ? col + 1 : col;
+
+        BGCell cell = bgManager.getBGCell(ModelHelper.getGridIndex(newRow, newCol));
+        bgManager.markCellSelected(row, col);
+        if (row >= 0 && row < gridWidth && col >= 0 && col < gridHeight && !cell.isEmpty()) {
+            bgManager.markCellCurrent(newRow, newCol);
+            dataManager.setCurrentPosition(ModelHelper.getGridIndex(newRow, newCol));
+        }
 
         //TODO mark if is correct the word
-        Word currentWord = dataManager.getCurrentWord();
+
         String tmp = currentWord.getTmp();
         tmp += letter;
         currentWord.setTmp(tmp);
-        if(currentWord.isCorrect()) {
-            bgManager.markCorrect(currentWord);
+        if (currentWord.isCorrect()) {
+            bgManager.markWordComplete(currentWord);
         }
     }
 

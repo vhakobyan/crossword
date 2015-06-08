@@ -63,7 +63,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.game);
 
@@ -102,7 +102,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }*/
+        }
 
         if(savedInstanceState != null){
             a = savedInstanceState.getInt(GAME_STATE, 0);

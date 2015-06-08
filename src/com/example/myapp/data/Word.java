@@ -95,9 +95,9 @@ public class Word {
         List<GridPos> list = new ArrayList<GridPos>();
         for (int i = 0; i < text.length(); i++) {
             if (horizontal) {
-                list.add(new GridPos(x + i, y));
+                list.add(new GridPos(y, x + i));
             } else {
-                list.add(new GridPos(x, y + i));
+                list.add(new GridPos(y + i, x));
             }
         }
         return list;
