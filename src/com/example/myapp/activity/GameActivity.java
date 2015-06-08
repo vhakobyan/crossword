@@ -176,24 +176,29 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
         if (this.downPos == position) {
 
-            this.horizontal = !this.horizontal;
+            Word word = manager.getWord(downX, downY, this.horizontal);
 
-            Word currentWord = manager.getWord(downX, downY, this.horizontal);
+            if(!word.isCompleted()) {
 
-            if(currentWord != null) {
+                this.horizontal = !this.horizontal;
+                Word newCurrentWord = manager.getWord(downX, downY, this.horizontal);
 
-                this.horizontal = currentWord.isHorizontal();
+                if(newCurrentWord != null && !newCurrentWord.isCompleted()) {
 
-                if (this.downPos == position) {
+                    this.horizontal = newCurrentWord.isHorizontal();
 
-                    this.txtDescription.setText(currentWord.getDescription());
-                    currentWord.setTmp("");
+                    if (this.downPos == position) {
 
-                    manager.clearBGSelection();
-                    manager.setCurrentWord(currentWord);
-                    manager.setCurrentPosition(position);
-                    manager.markBGSelection();
+                        this.txtDescription.setText(newCurrentWord.getDescription());
+                        newCurrentWord.setTmp("");
+
+                        manager.clearBGSelection();
+                        manager.setCurrentWord(newCurrentWord);
+                        manager.setCurrentPosition(position);
+                        manager.markBGSelection();
+                    }
                 }
+
             }
         }
 

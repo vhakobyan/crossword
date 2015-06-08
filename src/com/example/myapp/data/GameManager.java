@@ -79,11 +79,12 @@ public class GameManager {
         int newRow = horizontal ? row : row + 1;
         int newCol = horizontal ? col + 1 : col;
 
-        BGCell cell = bgManager.getBGCell(ModelHelper.getGridIndex(newRow, newCol));
+        int gridIndex = ModelHelper.getGridIndex(newRow, newCol);
+        BGCell cell = bgManager.getBGCell(gridIndex);
         bgManager.markCellSelected(row, col);
         if (row >= 0 && row < gridWidth && col >= 0 && col < gridHeight && !cell.isEmpty()) {
             bgManager.markCellCurrent(newRow, newCol);
-            dataManager.setCurrentPosition(ModelHelper.getGridIndex(newRow, newCol));
+            dataManager.setCurrentPosition(gridIndex);
         }
 
         //TODO mark if is correct the word
