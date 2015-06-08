@@ -91,6 +91,14 @@ public class Word {
         return this.length;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public List<GridPos> getGridPositions() {
         List<GridPos> list = new ArrayList<GridPos>();
         for (int i = 0; i < text.length(); i++) {

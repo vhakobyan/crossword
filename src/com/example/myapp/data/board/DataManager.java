@@ -120,4 +120,22 @@ public class DataManager {
         Word vw = ModelHelper.getVW(x, y);
         return horizontal ? (hw == null ? vw : hw) : (vw == null ?  hw : vw);
     }
+
+    public void markWordComplete(Word currentWord) {
+        if (currentWord.isHorizontal()) {
+            List<Word> hw = getHorizontalWords();
+            for (Word word : hw) {
+                if(word.getTitle().equals(currentWord.getTitle())) {
+                    word.setCompleted(true);
+                }
+            }
+        } else {
+            List<Word> vw = getVerticalWords();
+            for (Word word : vw) {
+                if(word.getTitle().equals(currentWord.getTitle())) {
+                    word.setCompleted(true);
+                }
+            }
+        }
+    }
 }

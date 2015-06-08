@@ -92,6 +92,7 @@ public class GameManager {
         tmp += letter;
         currentWord.setTmp(tmp);
         if (currentWord.isCorrect()) {
+            dataManager.markWordComplete(currentWord);
             bgManager.markWordComplete(currentWord);
         }
     }
