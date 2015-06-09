@@ -36,11 +36,7 @@ public class GameGridAdapter extends BaseAdapter {
     private Context context;
     // user letters
     private String[][] area;            // Tableau représentant les lettres du joueur
-    // right letters
-    private String[][] correctionArea; // Tableau représentant les lettres correctes
 
-    private boolean isLower;
-    private boolean isDraft;
     private int displayHeight;
     private int width;
     private int height;
@@ -51,8 +47,7 @@ public class GameGridAdapter extends BaseAdapter {
         views = new HashMap<Integer, TextView>();
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(act);
-        this.isLower = preferences.getBoolean("grid_is_lower", false);
-        this.context = (Context) act;
+        this.context = act;
         this.width = ModelHelper.getGrid().getWidth();
         this.height = ModelHelper.getGrid().getHeight();
 
@@ -62,7 +57,6 @@ public class GameGridAdapter extends BaseAdapter {
 
         // Fill area and areaCorrection
         this.area = new String[this.height][this.width];
-        this.correctionArea = new String[this.height][this.width];
 
         for (Word words : ModelHelper.getHorizontalWords()) {
 
@@ -84,7 +78,6 @@ public class GameGridAdapter extends BaseAdapter {
                         this.area[y][x + i] = " ";
 
                     }
-                    this.correctionArea[y][x + i] = String.valueOf(text.charAt(i));
 
                 }
             }
@@ -108,7 +101,6 @@ public class GameGridAdapter extends BaseAdapter {
                         this.area[y + i][x] = " ";
 
                     }
-                    this.correctionArea[y + i][x] = String.valueOf(text.charAt(i));
                 }
             }
         }
@@ -164,41 +156,13 @@ public class GameGridAdapter extends BaseAdapter {
         int row = position / this.width;
         int col = position % this.width;
         String data = this.area[row][col];
-        String correction = this.correctionArea[row][col];
 
-        // Si la grille est en mode check, colore les fautes en rouge
-        if (((GameActivity) context).currentMode == GameActivity.GRID_MODE.CHECK) {
-            if (data != null) {
-                v.setTextColor(context.getResources().getColor(data.equalsIgnoreCase(correction) ? R.color.normal : R.color.red));
-                v.setText(this.isLower ? data.toLowerCase() : data.toUpperCase());
-            }
-        }
-        // Si la grille est en mode correction, ajoute les bonnes lettres en verte
-        else if (((GameActivity) this.context).currentMode == GameActivity.GRID_MODE.SOLVE) {
-            if (data != null && data.equalsIgnoreCase(correction)) {
-                v.setTextColor(context.getResources().getColor(R.color.normal));
-                v.setText(this.isLower ? data.toLowerCase() : data.toUpperCase());
-            } else if (correction != null) {
-                v.setTextColor(context.getResources().getColor(R.color.green));
-                v.setText(this.isLower ? correction.toLowerCase() : correction.toUpperCase());
-            }
-        }
-        // Sinon mode normal, text en noire
-        else {
-            if (data != null) {
-                if (Character.isLowerCase(data.charAt(0)))
-                    v.setTextColor(context.getResources().getColor(R.color.draft));
-                else
-                    v.setTextColor(context.getResources().getColor(R.color.normal));
-                v.setText(this.isLower ? data.toLowerCase() : data.toUpperCase());
-            }
+        if (data != null) {
+            v.setTextColor(context.getResources().getColor(R.color.normal));
+            v.setText(data);
         }
 
         return v;
-    }
-
-    public void setLower(boolean isLower) {
-        this.isLower = isLower;
     }
 
     public int getPercent() {
@@ -222,7 +186,7 @@ public class GameGridAdapter extends BaseAdapter {
 
     public void setValue(int x, int y, String value) {
         if (this.area[y][x] != null)
-            this.area[y][x] = this.isDraft ? value.toLowerCase() : value.toUpperCase();
+            this.area[y][x] = value;
     }
 
     public String getWord(int x, int y, int length, boolean isHorizontal) {
@@ -237,10 +201,6 @@ public class GameGridAdapter extends BaseAdapter {
             }
         }
         return word.toString();
-    }
-
-    public void setDraft(boolean value) {
-        this.isDraft = value;
     }
 
     public static int getId(String resourceName, Class<?> c) {

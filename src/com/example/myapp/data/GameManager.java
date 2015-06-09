@@ -79,8 +79,11 @@ public class GameManager {
         int newRow = horizontal ? row : row + 1;
         int newCol = horizontal ? col + 1 : col;
 
-        if (newRow >= 0 && newRow < gridHeight && newCol >= 0 && newCol < gridWidth) {
-            int gridIndex = ModelHelper.getGridIndex(newRow, newCol);
+        int gridIndex = ModelHelper.getGridIndex(newRow, newCol);
+        BGCell cell = bgManager.getBGCell(gridIndex);
+
+        if (newRow >= 0 && newRow < gridHeight && newCol >= 0 && newCol < gridWidth && !cell.isEmpty()) {
+
             bgManager.markCellSelected(row, col);
             bgManager.markCellCurrent(newRow, newCol);
             dataManager.setCurrentPosition(gridIndex);

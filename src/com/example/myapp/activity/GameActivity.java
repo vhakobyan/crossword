@@ -170,42 +170,36 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
     private void onActionUp(int position) {
 
+        if (this.downPos != position) return;
+
         int width = ModelHelper.getGrid().getWidth();
         int downX = this.downPos % width;
         int downY = this.downPos / width;
 
-        if (this.downPos == position) {
+        Word word = manager.getWord(downX, downY, this.horizontal);
 
-            Word word = manager.getWord(downX, downY, this.horizontal);
+        if(!word.isCompleted()) {
 
-            if(!word.isCompleted()) {
+            this.horizontal = !this.horizontal;
+            Word newCurrentWord = manager.getWord(downX, downY, this.horizontal);
 
-                this.horizontal = !this.horizontal;
-                Word newCurrentWord = manager.getWord(downX, downY, this.horizontal);
+            if(newCurrentWord != null && !newCurrentWord.isCompleted()) {
 
-                if(newCurrentWord != null && !newCurrentWord.isCompleted()) {
+                this.horizontal = newCurrentWord.isHorizontal();
+                this.txtDescription.setText(newCurrentWord.getDescription());
+                newCurrentWord.setTmp("");
 
-                    this.horizontal = newCurrentWord.isHorizontal();
+                // clean bg only for not completed words
+                Word currentWord = manager.getCurrentWord();
+                if(currentWord != null && !currentWord.isCompleted())
+                    manager.clearBGSelection();
 
-                    if (this.downPos == position) {
-
-                        this.txtDescription.setText(newCurrentWord.getDescription());
-                        newCurrentWord.setTmp("");
-
-                        // clean bg only for not completed words
-                        Word currentWord = manager.getCurrentWord();
-                        if(currentWord != null && !currentWord.isCompleted())
-                            manager.clearBGSelection();
-
-                        manager.setCurrentWord(newCurrentWord);
-                        manager.setCurrentPosition(position);
-                        manager.markBGSelection();
-                    }
-                }
-
+                manager.setCurrentWord(newCurrentWord);
+                manager.setCurrentPosition(position);
+                manager.markBGSelection();
             }
-        }
 
+        }
     }
 
     private void onActionDown(int position) {
