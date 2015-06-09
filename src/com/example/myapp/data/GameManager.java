@@ -34,8 +34,8 @@ public class GameManager {
         dataManager.setCurrentWord(currentWord);
     }
 
-    public void getCurrentWord() {
-        dataManager.getCurrentWord();
+    public Word getCurrentWord() {
+        return dataManager.getCurrentWord();
     }
 
     public void initGameModel() {
@@ -79,10 +79,9 @@ public class GameManager {
         int newRow = horizontal ? row : row + 1;
         int newCol = horizontal ? col + 1 : col;
 
-        int gridIndex = ModelHelper.getGridIndex(newRow, newCol);
-        BGCell cell = bgManager.getBGCell(gridIndex);
-        bgManager.markCellSelected(row, col);
-        if (row >= 0 && row < gridWidth && col >= 0 && col < gridHeight && !cell.isEmpty()) {
+        if (newRow >= 0 && newRow < gridHeight && newCol >= 0 && newCol < gridWidth) {
+            int gridIndex = ModelHelper.getGridIndex(newRow, newCol);
+            bgManager.markCellSelected(row, col);
             bgManager.markCellCurrent(newRow, newCol);
             dataManager.setCurrentPosition(gridIndex);
         }

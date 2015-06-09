@@ -192,7 +192,11 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
                         this.txtDescription.setText(newCurrentWord.getDescription());
                         newCurrentWord.setTmp("");
 
-                        manager.clearBGSelection();
+                        // clean bg only for not completed words
+                        Word currentWord = manager.getCurrentWord();
+                        if(currentWord != null && !currentWord.isCompleted())
+                            manager.clearBGSelection();
+
                         manager.setCurrentWord(newCurrentWord);
                         manager.setCurrentPosition(position);
                         manager.markBGSelection();
@@ -214,11 +218,15 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
     @Override
     public void onKeyUp(String value) {
-        int currentPosition = ModelHelper.getCurrentPosition();
-        GridPos pos = ModelHelper.getGridPosition(currentPosition);
-        this.gridAdapter.setValue(pos.getCol(), pos.getRow(), value);
-        this.manager.onKeyUp(value);
-        this.gridAdapter.notifyDataSetChanged();
+        try {
+            int currentPosition = ModelHelper.getCurrentPosition();
+            GridPos pos = ModelHelper.getGridPosition(currentPosition);
+            this.gridAdapter.setValue(pos.getCol(), pos.getRow(), value);
+            this.manager.onKeyUp(value);
+            this.gridAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
