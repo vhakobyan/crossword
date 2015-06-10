@@ -67,8 +67,10 @@ public class GameManager {
 
         boolean horizontal = currentWord.isHorizontal();
 
-        int newRow = horizontal ? row : row + 1;
-        int newCol = horizontal ? col + 1 : col;
+        int step = letter.equals(" ") ? -1 : 1;
+        int newRow = horizontal ? row : row + step;
+        int newCol = horizontal ? col + step : col;
+
 
         int gridIndex = ModelHelper.getGridIndex(newRow, newCol);
         BGCell cell = bgManager.getBGCell(gridIndex);
