@@ -126,7 +126,7 @@ public class KeyboardView extends LinearLayout implements OnTouchListener {
                     case R.id.buttonO: this.value = "օ"; break;
                     case R.id.buttonP: this.value = "պ"; break;
                     case R.id.buttonQ: this.value = "ա"; break;
-                    case R.id.buttonR: this.value = "ռ"; break;
+                    case R.id.buttonR: this.value = "ր"; break;
                     case R.id.buttonS: this.value = "ս"; break;
                     case R.id.buttonT: this.value = "տ"; break;
                     case R.id.buttonU: this.value = "ու"; break;
