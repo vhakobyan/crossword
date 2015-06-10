@@ -27,6 +27,7 @@ public class DataManager {
 
     public DataManager(AssetManager assets) {
         this.assets = assets;
+        initDataManager();
     }
 
     public void setCurrentWord(Word currentWord) {
@@ -89,7 +90,7 @@ public class DataManager {
         }
     }
 
-    public String loadJSONFromAsset() {
+    private String loadJSONFromAsset() {
 
         String json = null;
         InputStream is = null;

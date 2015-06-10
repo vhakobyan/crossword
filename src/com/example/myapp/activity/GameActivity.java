@@ -79,7 +79,6 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             readPreferences();
 
             manager = new GameManager(getAssets(), this.gridView);
-            manager.initGameModel();
 
             Display display = getWindowManager().getDefaultDisplay();
             int keyboardHeight = (int) (display.getHeight() / 4.4);

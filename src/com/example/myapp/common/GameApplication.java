@@ -8,7 +8,6 @@ import android.app.Application;
  */
 public class GameApplication extends Application {
 
-    private BGModel bgModel;
     private GameModel gameModel;
 
     private static GameApplication singleton = new GameApplication();
@@ -21,15 +20,10 @@ public class GameApplication extends Application {
         return gameModel;
     }
 
-    public BGModel getBGModel() {
-        return bgModel;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
         singleton = this;
-        bgModel = new BGModel();
         gameModel = new GameModel();
     }
 

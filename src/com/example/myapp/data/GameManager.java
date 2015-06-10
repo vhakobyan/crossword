@@ -22,8 +22,8 @@ public class GameManager {
     private DataManager dataManager;
 
     public GameManager(AssetManager assets, GridView gv) {
-        bgManager = new BGManager(gv);
         dataManager = new DataManager(assets);
+        bgManager = new BGManager(gv);
     }
 
     public void clearBGSelection() {
@@ -36,23 +36,6 @@ public class GameManager {
 
     public Word getCurrentWord() {
         return dataManager.getCurrentWord();
-    }
-
-    public void initGameModel() {
-        initDataManager();
-        initBGManager();
-    }
-
-    private void initDataManager() {
-        dataManager.initDataManager();
-    }
-
-    private void initBGManager() {
-        int width = dataManager.getGridWidth();
-        int height = dataManager.getGridHeight();
-        List<Word> horizontalWords = dataManager.getHorizontalWords();
-        List<Word> verticalWords = dataManager.getVerticalWords();
-        bgManager.initBGManager(width, height, horizontalWords, verticalWords);
     }
 
     public void markBGSelection() {

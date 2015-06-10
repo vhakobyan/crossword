@@ -15,11 +15,9 @@ import java.util.Map;
  */
 public class ModelHelper {
 
-    private static BGModel bgModel;
     private static GameModel gameModel;
 
     static {
-        bgModel = GameApplication.getInstance().getBGModel();
         gameModel = GameApplication.getInstance().getGameModel();
     }
 
