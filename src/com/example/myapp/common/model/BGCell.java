@@ -2,6 +2,8 @@ package com.example.myapp.common.model;
 
 import com.example.myapp.common.type.BGType;
 
+import static com.example.myapp.common.type.BGType.*;
+
 /**
  * Created by Vahagn Hakobyan
  * on 5/6/15- 11:08 AM
@@ -16,15 +18,19 @@ public class BGCell {
     }
 
     public boolean isNumber() {
-        return this.type == BGType.NUMBER;
+        return this.type == NUMBER;
     }
 
     public boolean isArea() {
-        return this.type == BGType.AREA;
+        return this.type == AREA;
     }
 
     public boolean isEmpty() {
-        return this.type == BGType.EMPTY;
+        return this.type == EMPTY;
+    }
+
+    public boolean isComplete() {
+        return this.type == COMPLETE;
     }
 
 	public String getVal() {
@@ -34,4 +40,8 @@ public class BGCell {
 	public void setVal(String val) {
 		this.val = val;
 	}
+
+    public void setType(BGType type) {
+        this.type = type;
+    }
 }

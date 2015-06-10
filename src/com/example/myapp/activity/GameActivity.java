@@ -174,6 +174,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
 
                 this.horizontal = newCurrentWord.isHorizontal();
                 this.txtDescription.setText(newCurrentWord.getDescription());
+                // TODO correct tmp on crossing
                 newCurrentWord.setTmp("");
 
                 // clean bg only for not completed words
@@ -206,7 +207,7 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             this.manager.onKeyUp(value);
             this.gridAdapter.notifyDataSetChanged();
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

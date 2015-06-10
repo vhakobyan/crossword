@@ -8,6 +8,8 @@ import com.example.myapp.common.model.Word;
 import com.example.myapp.common.model.BGCell;
 import com.example.myapp.common.model.GridPos;
 
+import java.util.List;
+
 /**
  * this class is responsible for data management as background and text
  * Created by Vahagn Hakobyan
@@ -36,7 +38,16 @@ public class GameManager {
     }
 
     public void markBGSelection() {
-        bgManager.markWordSelected();
+        Word currentWord = ModelHelper.getCurrentWord();
+        if (currentWord != null) {
+            List<GridPos> gridPositions = currentWord.getGridPositions();
+            int currentPos = ModelHelper.getCurrentPosition();
+            for (GridPos pos : gridPositions) {
+                int index = ModelHelper.getGridIndex(pos.getRow(), pos.getCol());
+                if(currentPos == index) bgManager.markCellCurrent(pos.getRow(), pos.getCol());
+                else  bgManager.markCellSelected(pos.getRow(), pos.getCol());
+            }
+        }
     }
 
     public void setCurrentPosition(int currentPos) {

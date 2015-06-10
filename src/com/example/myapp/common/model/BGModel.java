@@ -87,6 +87,14 @@ public class BGModel {
         return cells[index / cols][index % cols];
     }
 
+    public BGCell getBGCell(int row, int col) {
+        return cells[col][row];
+    }
+
+    public void setBGCellType(int row, int col, BGType type) {
+        cells[row][col].setType(type);
+    }
+
     private void debugBGArray() {
         int cols = ModelHelper.getGrid().getWidth();
         int rows= ModelHelper.getGrid().getHeight();

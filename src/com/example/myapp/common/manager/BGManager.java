@@ -12,6 +12,7 @@ import com.example.myapp.common.helper.ModelHelper;
 import com.example.myapp.common.model.Word;
 import com.example.myapp.common.model.BGCell;
 import com.example.myapp.common.model.GridPos;
+import com.example.myapp.common.type.BGType;
 
 /**
  * This class is responsible for bg images
@@ -47,7 +48,7 @@ public class BGManager {
     private void markCell(int x, int y, String color) {
         int index = ModelHelper.getGridIndex(x, y);
         BGCell cell = getBGCell(index);
-        if(!cell.isEmpty()) {
+        if(!cell.isEmpty() && !cell.isComplete()) {
             View view = gridView.getChildAt(index);
             view.setBackgroundResource(GameGridAdapter.getId(color + cell.getVal(), R.drawable.class));
         }
@@ -67,20 +68,7 @@ public class BGManager {
         List<GridPos> gridPositions = word.getGridPositions();
         for (GridPos pos : gridPositions) {
             markCellCompleted(pos.getRow(), pos.getCol());
-        }
-    }
-
-    public void markWordSelected() {
-
-        Word currentWord = ModelHelper.getCurrentWord();
-        if (currentWord != null) {
-            List<GridPos> gridPositions = currentWord.getGridPositions();
-            int currentPos = ModelHelper.getCurrentPosition();
-            for (GridPos pos : gridPositions) {
-                int index = ModelHelper.getGridIndex(pos.getRow(), pos.getCol());
-                if(currentPos == index) markCellCurrent(pos.getRow(), pos.getCol());
-                else  markCellSelected(pos.getRow(), pos.getCol());
-            }
+            bgModel.setBGCellType(pos.getRow(), pos.getCol(), BGType.COMPLETE);
         }
     }
 
