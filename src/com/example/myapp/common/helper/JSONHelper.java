@@ -1,17 +1,15 @@
-package com.example.myapp.common;
+package com.example.myapp.common.helper;
 
 import android.util.Log;
-import com.example.myapp.data.Grid;
-import com.example.myapp.data.Word;
+import com.example.myapp.common.model.Grid;
+import com.example.myapp.common.model.Word;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Vahagn Hakobyan

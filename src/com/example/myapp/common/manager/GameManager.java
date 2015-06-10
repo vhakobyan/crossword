@@ -1,15 +1,12 @@
-package com.example.myapp.data;
+package com.example.myapp.common.manager;
 
 import android.content.res.AssetManager;
 import android.widget.GridView;
 
-import com.example.myapp.common.ModelHelper;
-import com.example.myapp.data.board.BGCell;
-import com.example.myapp.data.board.BGManager;
-import com.example.myapp.data.board.DataManager;
-import com.example.myapp.data.board.GridPos;
-
-import java.util.List;
+import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.common.model.Word;
+import com.example.myapp.common.model.BGCell;
+import com.example.myapp.common.model.GridPos;
 
 /**
  * this class is responsible for data management as background and text

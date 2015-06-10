@@ -1,20 +1,18 @@
-package com.example.myapp.data.board;
+package com.example.myapp.common.manager;
 
 import android.content.res.AssetManager;
 import android.util.Log;
-import android.view.View;
 
-import com.example.myapp.common.JSONHelper;
-import com.example.myapp.common.ModelHelper;
-import com.example.myapp.data.Grid;
-import com.example.myapp.data.Word;
+import com.example.myapp.common.helper.JSONHelper;
+import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.common.model.Grid;
+import com.example.myapp.common.model.Word;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

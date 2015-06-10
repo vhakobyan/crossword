@@ -1,4 +1,4 @@
-package com.example.myapp.data.board;
+package com.example.myapp.common.model;
 
 public class GridPos {
 

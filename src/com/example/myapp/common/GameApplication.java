@@ -2,6 +2,8 @@ package com.example.myapp.common;
 
 import android.app.Application;
 
+import com.example.myapp.common.model.GameModel;
+
 /**
  * Created: Vahagn Hakobyan
  * on: 04/05/15 - 5:01 PM

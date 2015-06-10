@@ -1,4 +1,6 @@
-package com.example.myapp.data.board;
+package com.example.myapp.common.model;
+
+import com.example.myapp.common.type.BGType;
 
 /**
  * Created by Vahagn Hakobyan

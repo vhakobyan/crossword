@@ -1,10 +1,9 @@
-package com.example.myapp.data;
+package com.example.myapp.common.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.myapp.common.ModelHelper;
-import com.example.myapp.data.board.GridPos;
+import com.example.myapp.common.helper.ModelHelper;
 
 public class Word {
 

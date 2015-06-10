@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.example.myapp.data;
+package com.example.myapp.common.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

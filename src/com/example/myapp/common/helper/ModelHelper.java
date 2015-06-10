@@ -1,13 +1,12 @@
-package com.example.myapp.common;
+package com.example.myapp.common.helper;
 
-import android.view.View;
-
-import com.example.myapp.data.Grid;
-import com.example.myapp.data.Word;
-import com.example.myapp.data.board.GridPos;
+import com.example.myapp.common.GameApplication;
+import com.example.myapp.common.model.GameModel;
+import com.example.myapp.common.model.Grid;
+import com.example.myapp.common.model.Word;
+import com.example.myapp.common.model.GridPos;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Vahagn Hakobyan

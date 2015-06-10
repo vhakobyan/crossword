@@ -14,17 +14,15 @@ import android.widget.GridView;
 import android.widget.TextView;
 import com.example.myapp.activity.GameActivity;
 import com.example.myapp.R;
-import com.example.myapp.common.ModelHelper;
-import com.example.myapp.data.GameManager;
-import com.example.myapp.data.Word;
+import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.common.manager.GameManager;
+import com.example.myapp.common.model.Word;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.myapp.data.board.BGCell;
-import com.example.myapp.data.board.BGManager;
-import com.example.myapp.data.board.BGType;
+import com.example.myapp.common.model.BGCell;
 
 public class GameGridAdapter extends BaseAdapter {
 

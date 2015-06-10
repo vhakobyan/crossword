@@ -1,13 +1,12 @@
-package com.example.myapp.common;
+package com.example.myapp.common.model;
 
 import android.util.Log;
-import android.view.View;
 
-import com.example.myapp.data.Word;
-import com.example.myapp.data.board.BGCell;
-import com.example.myapp.data.board.BGType;
+import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.common.model.Word;
+import com.example.myapp.common.model.BGCell;
+import com.example.myapp.common.type.BGType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

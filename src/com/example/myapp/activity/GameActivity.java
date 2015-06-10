@@ -5,16 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.myapp.KeyboardView;
@@ -22,20 +19,11 @@ import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
 import com.example.myapp.common.GameState;
-import com.example.myapp.common.JSONHelper;
-import com.example.myapp.common.ModelHelper;
-import com.example.myapp.data.GameManager;
-import com.example.myapp.data.Word;
-import com.example.myapp.data.board.BGCell;
-import com.example.myapp.data.board.GridPos;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.common.manager.GameManager;
+import com.example.myapp.common.model.Word;
+import com.example.myapp.common.model.BGCell;
+import com.example.myapp.common.model.GridPos;
 
 public class GameActivity extends Activity implements OnTouchListener, KeyboardViewInterface {
 

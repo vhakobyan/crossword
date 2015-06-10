@@ -1,12 +1,9 @@
-package com.example.myapp.common;
+package com.example.myapp.common.model;
 
-import com.example.myapp.data.Grid;
-import com.example.myapp.data.Word;
-import com.example.myapp.data.board.BGManager;
+import com.example.myapp.common.model.Grid;
+import com.example.myapp.common.model.Word;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Vahagn Hakobyan
