@@ -146,4 +146,12 @@ public class Word {
         }
         return "";
     }
+
+    public void removeLastFromTmp() {
+
+    }
+
+    public void addLastToTmp(String letter) {
+
+    }
 }

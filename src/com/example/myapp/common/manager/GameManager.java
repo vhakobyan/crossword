@@ -44,8 +44,8 @@ public class GameManager {
             int currentPos = ModelHelper.getCurrentPosition();
             for (GridPos pos : gridPositions) {
                 int index = ModelHelper.getGridIndex(pos.getRow(), pos.getCol());
-                if(currentPos == index) bgManager.markCellCurrent(pos.getRow(), pos.getCol());
-                else  bgManager.markCellSelected(pos.getRow(), pos.getCol());
+                if (currentPos == index) bgManager.markCellCurrent(pos.getRow(), pos.getCol());
+                else bgManager.markCellSelected(pos.getRow(), pos.getCol());
             }
         }
     }
@@ -67,7 +67,8 @@ public class GameManager {
 
         boolean horizontal = currentWord.isHorizontal();
 
-        int step = letter.equals(" ") ? -1 : 1;
+        boolean isDeletePressed = letter.equals(" ");
+        int step = isDeletePressed ? -1 : 1;
         int newRow = horizontal ? row : row + step;
         int newCol = horizontal ? col + step : col;
 
@@ -82,11 +83,13 @@ public class GameManager {
             dataManager.setCurrentPosition(gridIndex);
         }
 
-        //TODO mark if is correct the word
+        //check the word is correct
+        if (isDeletePressed) {
+            currentWord.removeLastFromTmp();
+        } else {
+            currentWord.addLastToTmp(letter);
+        }
 
-        String tmp = currentWord.getTmp();
-        tmp += letter;
-        currentWord.setTmp(tmp);
         if (currentWord.isCorrect()) {
             dataManager.markWordComplete(currentWord);
             bgManager.markWordComplete(currentWord);
