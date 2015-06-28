@@ -19,15 +19,14 @@ import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
 import com.example.myapp.common.GameState;
+import com.example.myapp.common.Settings;
 import com.example.myapp.common.helper.ModelHelper;
 import com.example.myapp.common.manager.GameManager;
 import com.example.myapp.common.model.Word;
 import com.example.myapp.common.model.BGCell;
 import com.example.myapp.common.model.GridPos;
 
-public class GameActivity extends Activity implements OnTouchListener, KeyboardViewInterface {
-
-    private static final String GAME_STATE = "game_state";
+public class GameActivity extends BaseActivity implements OnTouchListener, KeyboardViewInterface {
 
     private static final String TAG = "GameActivity";
 
@@ -42,13 +41,12 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
     private int downPos;        // Position or player supported
     private boolean horizontal;        // Direction of selection
 
-    private int a;
     private GameState gameState;
     private GameManager manager;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -91,30 +89,18 @@ public class GameActivity extends Activity implements OnTouchListener, KeyboardV
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        if(savedInstanceState != null){
-            a = savedInstanceState.getInt(GAME_STATE, 0);
-//                gameState = (GameState) savedInstanceState.getSerializable(GAME_STATE);
-            Log.i(TAG, "OLD game state");
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt(GAME_STATE, 5);
-        Log.i(TAG, "onSaveInstanceState");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
+        Settings.load(getFileIO());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause");
+        Settings.save(getFileIO());
     }
 
     @Override
