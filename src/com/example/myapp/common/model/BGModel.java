@@ -2,9 +2,7 @@ package com.example.myapp.common.model;
 
 import android.util.Log;
 
-import com.example.myapp.common.helper.ModelHelper;
-import com.example.myapp.common.model.Word;
-import com.example.myapp.common.model.BGCell;
+import com.example.myapp.util.ModelHelper;
 import com.example.myapp.common.type.BGType;
 
 import java.util.List;

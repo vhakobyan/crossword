@@ -1,6 +1,6 @@
 package com.example.myapp.common;
 
-import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.util.ModelHelper;
 
 import java.io.Serializable;
 

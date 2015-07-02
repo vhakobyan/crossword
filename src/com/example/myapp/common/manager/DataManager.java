@@ -3,8 +3,8 @@ package com.example.myapp.common.manager;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import com.example.myapp.common.helper.JSONHelper;
-import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.util.JSONHelper;
+import com.example.myapp.util.ModelHelper;
 import com.example.myapp.common.model.Grid;
 import com.example.myapp.common.model.Word;
 

@@ -1,4 +1,4 @@
-package com.example.myapp.common.helper;
+package com.example.myapp.util;
 
 import com.example.myapp.common.GameApplication;
 import com.example.myapp.common.model.GameModel;

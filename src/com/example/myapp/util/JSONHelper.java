@@ -1,4 +1,4 @@
-package com.example.myapp.common.helper;
+package com.example.myapp.util;
 
 import android.util.Log;
 import com.example.myapp.common.model.Grid;
@@ -10,12 +10,15 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Vahagn Hakobyan
  * on 5/6/15- 12:07 PM
  */
 public class JSONHelper {
+
+    private static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
     public static List<Word> grtVerticalWords(JSONObject obj) {
 
@@ -84,7 +87,7 @@ public class JSONHelper {
             grid.setLevel(Integer.valueOf(String.valueOf(obj.get("level"))));
             grid.setWidth(Integer.valueOf(String.valueOf(obj.get("width"))));
             grid.setHeight(Integer.valueOf(String.valueOf(obj.get("height"))));
-            grid.setDate((new SimpleDateFormat("dd/MM/yyyy")).parse(String.valueOf(obj.get("date"))));
+            grid.setDate(df.parse(String.valueOf(obj.get("date"))));
             return grid;
         } catch (Exception e) {
             Log.e("JSONHelper", e.getMessage());

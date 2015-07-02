@@ -14,7 +14,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import com.example.myapp.activity.GameActivity;
 import com.example.myapp.R;
-import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.util.ModelHelper;
 import com.example.myapp.common.manager.GameManager;
 import com.example.myapp.common.model.Word;
 

@@ -8,7 +8,7 @@ import android.widget.GridView;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
 import com.example.myapp.common.model.BGModel;
-import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.util.ModelHelper;
 import com.example.myapp.common.model.Word;
 import com.example.myapp.common.model.BGCell;
 import com.example.myapp.common.model.GridPos;

@@ -28,6 +28,7 @@
             android:listSelector="@null"
             android:numColumns="auto_fit"
             android:stretchMode="columnWidth"
+            android:scrollbars="none"
             android:verticalSpacing="1dp"/>
 
         <com.example.myapp.KeyboardView

@@ -1,4 +1,4 @@
-package com.example.myapp.common;
+package com.example.myapp.util;
 
 import com.example.myapp.common.api.FileIO;
 

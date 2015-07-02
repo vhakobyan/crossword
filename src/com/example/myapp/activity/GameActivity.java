@@ -1,16 +1,14 @@
 package com.example.myapp.activity;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +17,12 @@ import com.example.myapp.KeyboardViewInterface;
 import com.example.myapp.R;
 import com.example.myapp.adapter.GameGridAdapter;
 import com.example.myapp.common.GameState;
-import com.example.myapp.common.Settings;
-import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.util.ModelHelper;
 import com.example.myapp.common.manager.GameManager;
 import com.example.myapp.common.model.Word;
 import com.example.myapp.common.model.BGCell;
 import com.example.myapp.common.model.GridPos;
+import com.example.myapp.util.SerializerHelper;
 
 public class GameActivity extends BaseActivity implements OnTouchListener, KeyboardViewInterface {
 
@@ -73,7 +71,7 @@ public class GameActivity extends BaseActivity implements OnTouchListener, Keybo
             android.view.ViewGroup.LayoutParams gridParams = this.gridView.getLayoutParams();
             gridParams.height = display.getHeight() - keyboardHeight - this.txtDescription.getLayoutParams().height;
             this.gridView.setLayoutParams(gridParams);
-            this.gridView.setVerticalScrollBarEnabled(false);
+//            this.gridView.setVerticalScrollBarEnabled(false);
             this.gridAdapter = new GameGridAdapter(this);
             this.gridView.setAdapter(this.gridAdapter);
 
@@ -92,13 +90,18 @@ public class GameActivity extends BaseActivity implements OnTouchListener, Keybo
     @Override
     protected void onResume() {
         super.onResume();
-        Settings.load(getFileIO());
+//        Settings.load(getFileIO());
+        gameState = SerializerHelper.loadGameState(getBaseContext());
+        if(gameState == null) {
+            gameState = new GameState();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Settings.save(getFileIO());
+//        Settings.save(getFileIO());
+        SerializerHelper.saveGameState(getBaseContext(), gameState);
     }
 
     @Override
@@ -108,9 +111,11 @@ public class GameActivity extends BaseActivity implements OnTouchListener, Keybo
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void readPreferences() {

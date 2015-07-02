@@ -3,7 +3,7 @@ package com.example.myapp.common.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.myapp.common.helper.ModelHelper;
+import com.example.myapp.util.ModelHelper;
 
 public class Word {
 
