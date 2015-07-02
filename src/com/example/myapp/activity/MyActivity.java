@@ -9,13 +9,12 @@ import android.view.WindowManager;
 
 import com.example.myapp.R;
 
-public class MyActivity extends Activity implements View.OnClickListener {
+public class MyActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.main);
 
         findViewById(R.id.button_last).setOnClickListener(this);
